@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Operation Adventure{% endblock %}
+
+{% block body %}
+<h1>Operation Adventure</h1>
+<h4>Login here</h4>
+    <form id="login-form" action="/login" method="POST">
+        <p>
+            Email <input type="text" name="email">
+        </p>
+        <p>
+            Password <input type="password" name="password">
+        </p>
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+    <p>
+        <a href="/users/create-user">Need an account? Click here...</a>
+    </p>
+{% endblock %}
+
+{% block after_body %}
+<script src="/static/js/homepage.js"></script>
+{% endblock %}

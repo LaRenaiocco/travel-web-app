@@ -17,12 +17,6 @@ def create_user(email, password, fname, lname, photo_path=None):
     return user
 
 
-def get_user_by_email(email):
-    """Look up user by email."""
-
-    return User.query.filter(user.email == email).first()
-
-
 def create_itinerary(trip_name, start_date, end_date, num_days):
     """Create and return a new itinerary."""
 
@@ -76,6 +70,29 @@ def create_note(itinerary_id, user_id, comment, day=None):
     db.session.commit()
 
     return note 
+
+
+def get_user_by_email(email):
+    """Look up user by email."""
+
+    return User.query.filter(User.email == email).first()
+
+
+def get_itinerary_ids_by_user(user):
+    """Look up user information from session key USERNAME."""
+
+    # email = session['USERNAME']
+    # user = get_user_by_email(email)
+    user_id = user.user_id
+    user_itins = UserItinerary.query.filter(UserItinerary.user_id == user_id).all()
+    itinerary_ids = []
+    for itin in user_itins:
+        itinerary_ids.append(itin.itinerary_id)
+    print(itinerary_ids)
+
+
+
+
 
 
 if __name__ == '__main__':

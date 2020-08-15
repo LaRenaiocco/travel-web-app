@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Profile{% endblock %}
+
+{% block body %}
+<h1>Create a new profile</h1>
+    <form id#"new-user-form" submit="/users/create-user" method="POST">
+    <p>Email:
+        <input type="text" name="email">
+    </p>
+    <p>Password:
+        <input type="text" name="password">
+    </p>
+    <p>First Name:
+        <input type="text" name="fname">
+    </p>
+    <p>Last Name:
+        <input type="test" name="lname">
+    </p>
+    <p>
+        <input type="submit">
+    </p>
+    </form>
+{% endblock %}
