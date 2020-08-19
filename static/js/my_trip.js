@@ -13,6 +13,8 @@ function initMap() {
           zoom: 11
         }
       );
+    console.log(basicMap)
+    
     const londonMarker = new google.maps.Marker({
         position: londonCoords,
         title: 'London',

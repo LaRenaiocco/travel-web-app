@@ -4,21 +4,23 @@
 
 {% block body %}
 <h1>Create a new profile</h1>
-    <form id#"new-user-form" submit="/users/create-user" method="POST">
-    <p>Email:
-        <input type="text" name="email">
-    </p>
-    <p>Password:
-        <input type="text" name="password">
-    </p>
-    <p>First Name:
-        <input type="text" name="fname">
-    </p>
-    <p>Last Name:
-        <input type="test" name="lname">
-    </p>
-    <p>
-        <input type="submit">
-    </p>
+<div>
+  <form id="new-user-form" submit="/users/create-user" method="POST">
+  	<div>Email:
+      <input type="text" name="email">
+  	</div>
+    <div>Password:
+      <input type="text" name="password">
+    </div>
+    <div>First Name:
+      <input type="text" name="fname">
+    </div>
+    <div>Last Name:
+      <input type="test" name="lname">
+    </div>
+    <div>
+      <input type="submit">
+    </div>
     </form>
+</div>
 {% endblock %}

@@ -3,22 +3,26 @@
 {% block title %}Operation Adventure{% endblock %}
 
 {% block body %}
-<h1>Operation Adventure</h1>
-<h4>Login here</h4>
-    <form id="login-form" action="/login" method="POST">
-        <p>
-            Email <input type="text" name="email">
-        </p>
-        <p>
-            Password <input type="password" name="password">
-        </p>
-        <p>
-            <input type="submit">
-        </p>
-    </form>
-    <p>
-        <a href="/users/create-user">Need an account? Click here...</a>
-    </p>
+<div>
+	<h1>Operation Adventure</h1>
+</div>
+<div>
+	<h4>Login here</h4>
+  <form id="login-form" action="/login" method="POST">
+    <div>Email:
+			<input type="text" name="email" />
+    </div>
+    <div>Password:
+			<input type="password" name="password" />
+		</div>
+    <div>
+      <input type="submit" />
+    </div>
+	</form>
+</div>
+<div id="create_user-link">
+  <a href="/users/create-user">Need an account? Click here...</a>
+</div>
 {% endblock %}
 
 {% block after_body %}

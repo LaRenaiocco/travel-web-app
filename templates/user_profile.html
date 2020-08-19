@@ -1,8 +1,55 @@
 {% extends 'base.html' %}
-{% block title %}{{ fname }}'s Profile{% endblock %}
+{% block title %}{{ user.fname }}'s Profile{% endblock %}
 
 {% block body %}
 <h1> User profile page</h1>
-<h3>{{ fname }} {{ lname}}</h3>
-<p>{{ email }}</p>
+<div id="user-name">
+  <h3>{{ user.fname }} {{ user.lname}}</h3>
+</div>
+<div id="user-email">
+  <p>{{ user.email }}</p>
+</div>
+<div>
+  <h2>Itineraries</h2>
+  <ul>
+    {% for itin in user_itins %}
+      <div>
+        <li>
+          <a href="/users/trips/{{ itin.itinerary_id }}">{{ itin.trip_name }}</a>
+        </li>
+      </div>
+    {% endfor %}
+  </ul>
+</div>
+<div id="new-trip-btn">
+Add New Trip
+</div>
+<div id="add-new-trip">
+  <form id="new-trip-form" action="/users/trips/new-trip.json" method="POST">
+    <div>Where are you going for your next adventure?
+      <input id="city-input" type="text" name="city" />
+    </div>
+    <div>Departure Date:
+      <input id="depart-date" type="date" name="depart" />
+    </div>
+    <div>Return Date:
+      <input id="return-date" type="date" name="return" />
+    </div>
+    <div>
+      <input type="submit" />
+    </div>
+  </form>
+</div>
+<div id="logout-button">
+  <form action="/logout">
+    <button>Logout</button>
+  </form> 
+</div>
+
+
+
+{% endblock %}
+
+{% block after_body %}
+<script src="/static/js/user_profile.js"></script>
 {% endblock %}

@@ -1,7 +1,7 @@
 """ Server for Operation Adventure."""
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect)
+                   redirect, jsonify)
 from jinja2 import StrictUndefined
 from model import connect_to_db
 import crud
@@ -37,18 +37,26 @@ def login_user():
             print('session username set')
             return redirect (f'users/profile/{user_object.fname}')
 
+
+@app.route ('/logout')
+def logut_user():
+    """Log out user."""
+
+    session.pop('USERNAME', None)
+    session.pop('TRIP', None)
+
+    return redirect('/')
+
+
 @app.route('/users/profile/<fname>')
 def show_user_profile(fname):
     """ Show logged in user profile."""
 
     email = session['USERNAME']
     user = crud.get_user_by_email(email)
-    lname = user.lname
-    itinerary_ids = crud.get_itinerary_ids_by_user(user)
+    user_itins = crud.get_itineraries_by_user(user)
 
-
-        
-    return render_template('user_profile.html', email=email, fname=fname, lname=lname)  
+    return render_template('user_profile.html', user=user, user_itins=user_itins)  
 
 
 @app.route('/users/create-user')
@@ -77,13 +85,37 @@ def new_user():
         return redirect ('/')
 
 
+@app.route('/users/trips/new-trip.json', methods=['POST'])
+def new_itinerary():
+    """Creates a new itinerary for a user."""
 
-@app.route('/users/itinerary')
-def show_itinerary():
+    email = session["USERNAME"]
+    user = crud.get_user_by_email(email)
+    trip_name = request.form.get('trip_name')
+    start_date = request.form.get('start_date')
+    end_date = request.form.get('end_date')
+    num_days = crud.calculate_itinerary_days(start_date, end_date)
+    new_itinerary = crud.create_itinerary(trip_name, start_date, end_date, num_days)
+    new_ui = crud.create_user_itinerary(user.user_id, new_itinerary.itinerary_id)
+    json_info = {'itinerary_id': new_itinerary.itinerary_id, 'trip_name': new_itinerary.trip_name}
+    print(f'\n\n\n\n{json_info}\n\n')
+
+    return jsonify(json_info)
+
+
+
+
+
+@app.route('/users/trips/<itinerary_id>')
+def show_itinerary(itinerary_id):
     """Show individual trip itinerary."""
 
     return render_template('my_trip.html')
 
+@app.route('/map')
+def show_map():
+
+    return render_template('my_trip.html')
 
 
 if __name__ == '__main__':

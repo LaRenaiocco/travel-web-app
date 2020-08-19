@@ -1,6 +1,8 @@
 """ CRUD operations for travel web app."""
 
 from model import (db, User, Itinerary, UserItinerary, Activity, Note, connect_to_db)
+from datetime import datetime 
+
 
 def create_user(email, password, fname, lname, photo_path=None):
     """Create and return a new user."""
@@ -78,17 +80,36 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 
-def get_itinerary_ids_by_user(user):
-    """Look up user information from session key USERNAME."""
+def get_itineraries_by_user(user):
+    """Look up itineraries associated with a specified user."""
 
     # email = session['USERNAME']
     # user = get_user_by_email(email)
     user_id = user.user_id
-    user_itins = UserItinerary.query.filter(UserItinerary.user_id == user_id).all()
+    user_itin_ids = UserItinerary.query.filter(UserItinerary.user_id == user_id).all()
     itinerary_ids = []
-    for itin in user_itins:
+    for itin in user_itin_ids:
         itinerary_ids.append(itin.itinerary_id)
-    print(itinerary_ids)
+    itineraries = []
+    for ids in itinerary_ids:
+        item = Itinerary.query.get(ids)
+        itineraries.append(item)
+    print('\n\n\n')
+    print(itineraries)
+    print('\n\n\n')
+    return itineraries
+    
+    # print(itinerary_ids)
+
+def calculate_itinerary_days(start_date, end_date):
+    """ Calculate num_days for itinerary data based on start and end dates."""
+
+    date_format = "%Y-%M-%d"
+    start = datetime.strptime(start_date, date_format)
+    end = datetime.strptime(end_date, date_format)
+    delta = end - start
+
+    return delta.days
 
 
 
