@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
+
 {% block title %}{{ user.fname }}'s Profile{% endblock %}
 
+{% block head %}
+<script
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPvhvx8ntPggOcLAjKI1wQJuvDMygGD7E&callback=initMap&libraries=places&v=weekly"
+defer
+></script>
+<link rel="stylesheet" type="text/css" href="/static/css/new_trip.css" />
+<script src="/static/js/new_trip.js"></script>
+{% endblock %}
 {% block body %}
 <h1> User profile page</h1>
 <div id="user-name">
@@ -27,7 +36,7 @@ Add New Trip
 <div id="add-new-trip">
   <form id="new-trip-form" action="/users/trips/new-trip.json" method="POST">
     <div>Where are you going for your next adventure?
-      <input id="city-input" type="text" name="city" />
+      <input id="city-input" type="text" name="city" placeholder="city, state or country"/>
     </div>
     <div>Departure Date:
       <input id="depart-date" type="date" name="depart" />
@@ -39,6 +48,20 @@ Add New Trip
       <input type="submit" />
     </div>
   </form>
+</div>
+<div style="display: none">
+  <input
+    id="pac-input"
+    class="controls"
+    type="text"
+    placeholder="Enter a location"
+  />
+</div>
+<div id="map"></div>
+<div id="infowindow-content">
+  <span id="place-name" class="title"></span><br />
+  <strong>Place ID</strong>: <span id="place-id"></span><br />
+  <span id="place-address"></span>
 </div>
 <div id="logout-button">
   <form action="/logout">

@@ -5,10 +5,13 @@ from flask import (Flask, render_template, request, flash, session,
 from jinja2 import StrictUndefined
 from model import connect_to_db
 import crud
+import helper
+import os
 
 app = Flask(__name__)
 app.secret_key = "devLaRena"
 app.jinja_env.undefined = StrictUndefined
+GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
 
 @app.route('/')
 def homepage():
@@ -21,21 +24,21 @@ def login_user():
     """ Log in user."""
 
     email = request.form['email']
-    password=request.form['password']
-    user_object = crud.get_user_by_email(email)
+    password = request.form['password']
+    user = helper.get_user_by_email(email)
 
-    if user_object == None:
+    if user == None:
         flash('No account with this email exists. Please try again.')
         return redirect ('/')
     else:
-        if password != user_object.password:
+        if password != user.password:
             flash('Incorrect Password. Please try again.')
             return redirect ('/')
         else:
-            session['USERNAME'] = user_object.email
+            session['USERNAME'] = user.email
             # print(session['USERNAME'])
             print('session username set')
-            return redirect (f'users/profile/{user_object.fname}')
+            return redirect (f'users/profile/{user.fname}')
 
 
 @app.route ('/logout')
@@ -53,8 +56,8 @@ def show_user_profile(fname):
     """ Show logged in user profile."""
 
     email = session['USERNAME']
-    user = crud.get_user_by_email(email)
-    user_itins = crud.get_itineraries_by_user(user)
+    user = helper.get_user_by_email(email)
+    user_itins = helper.get_itineraries_by_user(user)
 
     return render_template('user_profile.html', user=user, user_itins=user_itins)  
 
@@ -65,6 +68,7 @@ def create_new_user():
 
     return render_template('create_profile.html')
 
+
 @app.route('/users/create-user', methods = ['POST'])
 def new_user():
     """Create new profile."""
@@ -74,7 +78,7 @@ def new_user():
     fname = request.form['fname']
     lname = request.form['lname']
 
-    user = crud.get_user_by_email(email)
+    user = helper.get_user_by_email(email)
 
     if user != None:
         flash('This email is already associated with an account. Please log in.')
@@ -90,7 +94,7 @@ def new_itinerary():
     """Creates a new itinerary for a user."""
 
     email = session["USERNAME"]
-    user = crud.get_user_by_email(email)
+    user = helper.get_user_by_email(email)
     trip_name = request.form.get('trip_name')
     start_date = request.form.get('start_date')
     end_date = request.form.get('end_date')
@@ -98,7 +102,6 @@ def new_itinerary():
     new_itinerary = crud.create_itinerary(trip_name, start_date, end_date, num_days)
     new_ui = crud.create_user_itinerary(user.user_id, new_itinerary.itinerary_id)
     json_info = {'itinerary_id': new_itinerary.itinerary_id, 'trip_name': new_itinerary.trip_name}
-    print(f'\n\n\n\n{json_info}\n\n')
 
     return jsonify(json_info)
 

@@ -48,6 +48,8 @@ class Itinerary(db.Model):
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
     num_days = db.Column(db.Integer)
+    lat = db.Column(db.Float)
+    lng = db.Column(db.Float)
 
     user_itinerary = db.relationship('UserItinerary')
     activity = db.relationship('Activity')

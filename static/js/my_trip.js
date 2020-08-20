@@ -2,8 +2,8 @@
 
 function initMap() {
     const londonCoords = {
-      lat: 51.5074,
-      lng: 0.1278
+      lat: 51.5073509,
+      lng: -0.1277583
     };
 
     const basicMap = new google.maps.Map(
