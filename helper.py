@@ -78,6 +78,8 @@ def json_itinerary_and_activities(itin_id):
     return json
 
 class DateTimeEncoder(json.JSONEncoder):
+    """makes time and date objects jsonifiable"""
+
     def default(self, o):
         if isinstance(o, date):
             return o.isoformat()
