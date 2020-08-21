@@ -133,7 +133,7 @@ def return_json_for_maps():
 
     itinerary_id = session['TRIP']
     # json_data = helper.serialize_itinerary_by_id(itinerary_id)
-    json_data = helper.json_itinerary_and_activities(itinerary_id)
+    json_data = helper.json_itinerary_activities_notes(itinerary_id)
 
     # return jsonify(json_data)
     return json.dumps(json_data, cls=helper.DateTimeEncoder)

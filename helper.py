@@ -61,19 +61,50 @@ def list_activities_by_itinerary(itin_id):
     """serialize activities to jsonify"""
 
     activities = get_activities_by_itinerary_id(itin_id)
-    jsonifiable_activities = []
+    json_activities = []
+
     for a in activities:
-        a_dict = {'activity_id': a.activity_id, 'itinerary_id': a.itinerary_id, 'activity_name': a.activity_name, 'address': a.address, 'lat': a.lat, 'lng': a.lng, 'activity_day': a.activity_day, 'activity_time': a.activity_time, 'activity_note': a.activity_note}
-        jsonifiable_activities.append(a_dict)
+        a_dict = {'activity_id': a.activity_id, 
+            'itinerary_id': a.itinerary_id,
+            'activity_name': a.activity_name, 
+            'address': a.address, 
+            'lat': a.lat,
+            'lng': a.lng, 
+            'activity_day': a.activity_day, 
+            'activity_time': a.activity_time, 
+            'activity_note': a.activity_note
+            }
 
-    return jsonifiable_activities
+        json_activities.append(a_dict)
 
-def json_itinerary_and_activities(itin_id):
+    return json_activities
+
+
+def list_notes_by_itinerary(itin_id):
+    """serialize notes to jsonify"""
+
+    notes = get_notes_by_itinerary_id(itin_id)
+    json_notes = []
+
+    for n in notes:
+        n_dict = {'note_id': n.note_id,
+            'itinerary_id': n.itinerary_id,
+            'user_id': n.user_id,
+            'comment': n.comment,
+            'day': n.day
+            }
+
+        json_notes.append(n_dict)
+
+    return json_notes
+
+def json_itinerary_activities_notes(itin_id):
 
     itinerary = serialize_itinerary_by_id(itin_id)
     activities = list_activities_by_itinerary(itin_id)
+    notes = list_notes_by_itinerary(itin_id)
 
-    json = {'itinerary': itinerary, 'activities': activities}
+    json = {'itinerary': itinerary, 'activities': activities, 'notes': notes}
 
     return json
 
