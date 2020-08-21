@@ -1,5 +1,7 @@
 from model import (db, User, Itinerary, UserItinerary, Activity, Note, connect_to_db)
 import geocoder
+import json
+from datetime import date, time
 
 
 def get_user_by_email(email):
@@ -72,6 +74,17 @@ def json_itinerary_and_activities(itin_id):
     activities = list_activities_by_itinerary(itin_id)
 
     json = {'itinerary': itinerary, 'activities': activities}
+
+    return json
+
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, date):
+            return o.isoformat()
+        if isinstance(o, time):
+            return o.isoformat()
+
+        return json.JSONEncoder.default(self, o)
 
 
     

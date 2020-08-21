@@ -5,8 +5,19 @@ function initMap() {
 const latLngObject = {lat: 0, lng: 0}
 
 $.get('/users/trips/api', (data) => {
-  latLngObject['lat'] = data.lat;
-  latLngObject['lng'] = data.lng;
+  // const response = data.json()
+  console.log(data)
+  const response = JSON.parse(data)
+  console.log(response)
+  // console.log(data.itinerary)
+
+  // latLngObject['lat'] = response['itinerary']['lat'];
+  // latLngObject['lng'] = response['itinerary']['lng'];
+
+  // latLngObject['lat'] = data.lat;
+  // latLngObject['lng'] = data.lng;
+  latLngObject['lat'] = response.itinerary.lat;
+  latLngObject['lng'] = response.itinerary.lng;
 
 
     const basicMap = new google.maps.Map(
@@ -26,7 +37,7 @@ $.get('/users/trips/api', (data) => {
     );
 
     const tripInfo = new google.maps.InfoWindow({
-        content: `<h2>Let's go to ${data.trip_name}</h2>`
+        content: `<h2>Let's go to ${response.itinerary.trip_name}</h2>`
       });
     
       tripInfo.open(basicMap, tripMarker);

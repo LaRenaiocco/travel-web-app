@@ -7,6 +7,8 @@ from model import connect_to_db
 import crud
 import helper
 import os
+import json
+from datetime import date, time
 
 app = Flask(__name__)
 app.secret_key = "devLaRena"
@@ -130,10 +132,11 @@ def return_json_for_maps():
     """Return json to JS for google map."""
 
     itinerary_id = session['TRIP']
-    json_data = helper.serialize_itinerary_by_id(itinerary_id)
-    # json_data = helper.json_itinerary_and_activities(itinerary_id)
+    # json_data = helper.serialize_itinerary_by_id(itinerary_id)
+    json_data = helper.json_itinerary_and_activities(itinerary_id)
 
-    return jsonify(json_data)
+    # return jsonify(json_data)
+    return json.dumps(json_data, cls=helper.DateTimeEncoder)
 
 @app.route('/trip-search1')
 def trip_search1():
