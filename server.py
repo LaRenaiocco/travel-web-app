@@ -99,8 +99,13 @@ def new_itinerary():
     start_date = request.form.get('start_date')
     end_date = request.form.get('end_date')
     num_days = crud.calculate_itinerary_days(start_date, end_date)
-    new_itinerary = crud.create_itinerary(trip_name, start_date, end_date, num_days)
-    new_ui = crud.create_user_itinerary(user.user_id, new_itinerary.itinerary_id)
+    lat_lng = crud.get_latitude_longitude_for_itinerary(trip_name)
+    lat = lat_lng[0]
+    lng = lat_lng[1]
+    new_itinerary = crud.create_itinerary(trip_name, start_date, end_date, num_days, lat, lng)
+
+    crud.create_user_itinerary(user.user_id, new_itinerary.itinerary_id)
+
     json_info = {'itinerary_id': new_itinerary.itinerary_id, 'trip_name': new_itinerary.trip_name}
 
     return jsonify(json_info)
@@ -113,12 +118,32 @@ def new_itinerary():
 def show_itinerary(itinerary_id):
     """Show individual trip itinerary."""
 
-    return render_template('my_trip.html')
+    session['TRIP'] = itinerary_id
+    itinerary = helper.get_itinerary_by_id(itinerary_id)
+    activities = helper.get_activities_by_itinerary_id(itinerary_id)
+    notes = helper.get_notes_by_itinerary_id(itinerary_id)
 
-@app.route('/map')
-def show_map():
+    return render_template('my_trip.html', itinerary=itinerary, activities=activities, notes=notes)
 
-    return render_template('my_trip.html')
+@app.route('/users/trips/api')
+def return_json_for_maps():
+    """Return json to JS for google map."""
+
+    itinerary_id = session['TRIP']
+    json_data = helper.serialize_itinerary_by_id(itinerary_id)
+    # json_data = helper.json_itinerary_and_activities(itinerary_id)
+
+    return jsonify(json_data)
+
+@app.route('/trip-search1')
+def trip_search1():
+
+    return render_template('trip_search1.html')
+
+@app.route('/trip-search2')
+def trip_search2():
+
+    return render_template('trip_search2.html')
 
 
 if __name__ == '__main__':

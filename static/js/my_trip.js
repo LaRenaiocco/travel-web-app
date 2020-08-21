@@ -1,30 +1,34 @@
 "use strict"
 
 function initMap() {
-    const londonCoords = {
-      lat: 51.5073509,
-      lng: -0.1277583
-    };
+
+const latLngObject = {lat: 0, lng: 0}
+
+$.get('/users/trips/api', (data) => {
+  latLngObject['lat'] = data.lat;
+  latLngObject['lng'] = data.lng;
+
 
     const basicMap = new google.maps.Map(
         document.querySelector('#map'),
         {
-          center: londonCoords,
-          zoom: 11
+          center: latLngObject,
+          zoom: 7
         }
       );
     console.log(basicMap)
     
-    const londonMarker = new google.maps.Marker({
-        position: londonCoords,
-        title: 'London',
+    const tripMarker = new google.maps.Marker({
+        position: latLngObject,
+        title: 'My Trip',
         map: basicMap
         }
     );
 
-    const londonInfo = new google.maps.InfoWindow({
-        content: '<h1>London</h1>'
+    const tripInfo = new google.maps.InfoWindow({
+        content: `<h2>Let's go to ${data.trip_name}</h2>`
       });
     
-      londonInfo.open(basicMap, londonMarker);
+      tripInfo.open(basicMap, tripMarker);
+  });
 }

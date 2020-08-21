@@ -89,9 +89,10 @@ class Activity(db.Model):
     itinerary_id = db.Column(db.Integer,
                     db.ForeignKey('itineraries.itinerary_id'))
     activity_name = db.Column(db.String)
-    street_address = db.Column(db.String)
-    city = db.Column(db.String)
-    postcode = db.Column(db.String)
+    address = db.Column(db.String)
+    # place_id = db.Column(db.String)
+    lat = db.Column(db.Float)
+    lng = db.Column(db.Float)
     activity_day = db.Column(db.Date, nullable=True)
     activity_time = db.Column(db.Time, nullable=True)
     activity_note = db.Column(db.Text, nullable=True)

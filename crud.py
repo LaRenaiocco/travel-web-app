@@ -2,6 +2,10 @@
 
 from model import (db, User, Itinerary, UserItinerary, Activity, Note, connect_to_db)
 from datetime import datetime 
+import geocoder
+import os
+
+GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
 
 
 def create_user(email, password, fname, lname, photo_path=None):
@@ -19,13 +23,15 @@ def create_user(email, password, fname, lname, photo_path=None):
     return user
 
 
-def create_itinerary(trip_name, start_date, end_date, num_days):
+def create_itinerary(trip_name, start_date, end_date, num_days, lat, lng):
     """Create and return a new itinerary."""
 
     itinerary = Itinerary(trip_name=trip_name,
         start_date=start_date,
         end_date=end_date,
-        num_days=num_days)
+        num_days=num_days,
+        lat=lat,
+        lng=lng)
 
     db.session.add(itinerary)
     db.session.commit()
@@ -43,14 +49,16 @@ def create_user_itinerary(user_id, itinerary_id):
     return user_itinerary
 
 
-def create_activity(itinerary_id, activity_name, street_address, city, postcode,  activity_day=None, activity_time=None, activity_note=None):
+def create_activity(itinerary_id, activity_name, address, lat, lng,  
+                    activity_day=None, activity_time=None, activity_note=None):
     """Create and return a new activity."""
 
     activity = Activity(itinerary_id=itinerary_id,
         activity_name=activity_name,
-        street_address=street_address,
-        city=city,
-        postcode=postcode,
+        address=address,
+        #place_id=place_id,
+        lat=lat,
+        lng=lng,
         activity_day=activity_day,
         activity_time=activity_time,
         activity_note=activity_note,)
@@ -85,6 +93,14 @@ def calculate_itinerary_days(start_date, end_date):
 
     return delta.days
 
+
+def get_latitude_longitude_for_itinerary(trip_name):
+    """Find latitude and longitude for new itinerary map"""
+
+    g = geocoder.google(trip_name, key = GOOGLE_API_KEY)
+    lat_lng_tuple = (g.lat, g.lng)
+
+    return lat_lng_tuple
 
 
 

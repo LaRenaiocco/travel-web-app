@@ -2,14 +2,7 @@
 
 {% block title %}{{ user.fname }}'s Profile{% endblock %}
 
-{% block head %}
-<script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPvhvx8ntPggOcLAjKI1wQJuvDMygGD7E&callback=initMap&libraries=places&v=weekly"
-defer
-></script>
-<link rel="stylesheet" type="text/css" href="/static/css/new_trip.css" />
-<script src="/static/js/new_trip.js"></script>
-{% endblock %}
+
 {% block body %}
 <h1> User profile page</h1>
 <div id="user-name">
@@ -49,27 +42,6 @@ Add New Trip
     </div>
   </form>
 </div>
-<div style="display: none">
-  <input
-    id="pac-input"
-    class="controls"
-    type="text"
-    placeholder="Enter a location"
-  />
-</div>
-<div id="map"></div>
-<div id="infowindow-content">
-  <span id="place-name" class="title"></span><br />
-  <strong>Place ID</strong>: <span id="place-id"></span><br />
-  <span id="place-address"></span>
-</div>
-<div id="logout-button">
-  <form action="/logout">
-    <button>Logout</button>
-  </form> 
-</div>
-
-
 
 {% endblock %}
 
