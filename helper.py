@@ -1,4 +1,5 @@
 from model import (db, User, Itinerary, UserItinerary, Activity, Note, connect_to_db)
+# Not used - expected?
 import geocoder
 import json
 from datetime import date, time
@@ -11,10 +12,14 @@ def get_user_by_email(email):
 
 
 def get_itineraries_by_user(user):
+    # You should be able to handle the user itinerary -> itinerary
+    # lookup with a single SQLALchemy query.
     """Look up itineraries associated with a specified user."""
 
     user_id = user.user_id
     user_itin_ids = UserItinerary.query.filter(UserItinerary.user_id == user_id).all()
+    # Have you learned about list comprehensions?
+    # https://www.programiz.com/python-programming/list-comprehension
     itinerary_ids = []
     for itin in user_itin_ids:
         itinerary_ids.append(itin.itinerary_id)
@@ -47,6 +52,8 @@ def serialize_itinerary_by_id(itin_id):
     """serialize itinerary to jsonify"""
 
     itinerary = get_itinerary_by_id(itin_id)
+    # Typically when I define a variable and immediately return it,
+    # I just skip the declaration and return the value directly
     jsonifiable_itinerary = {'itinerary_id': itinerary.itinerary_id,
                       'trip_name': itinerary.trip_name,
                       'start_date': itinerary.start_date,
