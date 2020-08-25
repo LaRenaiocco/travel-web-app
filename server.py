@@ -70,7 +70,7 @@ def create_new_user():
     return render_template('create_profile.html')
 
 
-@app.route('/users/create-user', methods = ['POST'])
+@app.route('/users/create-user.json', methods = ['POST'])
 def new_user():
     """Create new profile."""
 
@@ -82,12 +82,10 @@ def new_user():
     user = helper.get_user_by_email(email)
 
     if user != None:
-        flash('This email is already associated with an account. Please log in.')
-        return redirect ('/')
+        return jsonify('This email is already associated with an account. Please log in.')
     else:
         crud.create_user(email, password, fname, lname)
-        flash('Your account has been created.  Please log in.')
-        return redirect ('/')
+        return jsonify('Your account has been created.  Please log in.')
 
 
 @app.route('/users/trips/new-trip.json', methods=['POST'])
@@ -131,16 +129,7 @@ def show_itinerary(itinerary_id):
     """Show individual trip itinerary."""
 
     session['TRIP'] = itinerary_id
-    # print('\n\n\n')
     print('session trip set')
-    # print('\n\n\n')
-    print(session['TRIP'])
-    # print('\n\n\n')
-    # itinerary = helper.get_itinerary_by_id(itinerary_id)
-    # activities = helper.get_activities_by_itinerary_id(itinerary_id)
-    # notes = helper.get_notes_by_itinerary_id(itinerary_id)
-
-    # return render_template('my_trip.html', itinerary=itinerary, activities=activities, notes=notes)
 
     return render_template('my_trip.html')
 

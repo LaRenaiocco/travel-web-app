@@ -6,22 +6,43 @@
 <div>
 	<h1>Operation Adventure</h1>
 </div>
-<div>
-	<h4>Login here</h4>
-  <form id="login-form" action="/login" method="POST">
-    <div>Email:
-			<input type="text" name="email" required="required" />
-    </div>
-    <div>Password:
-			<input type="password" name="password" required="required" />
-		</div>
-    <div>
-      <input type="submit" />
-    </div>
-	</form>
+<div id="login-info">
+  <div id="login">
+    <h4>Login here</h4>
+    <form id="login-form" action="/login" method="POST">
+      <div>Email:
+        <input type="text" name="email" required="required" />
+      </div>
+      <div>Password:
+        <input type="password" name="password" required="required" />
+      </div>
+      <div>
+        <input type="submit" value="Log In" />
+      </div>
+    </form>
+  </div>
+  <div id="create-user-link">
+    Need an account? Click here...
+  </div>
 </div>
-<div id="create_user-link">
-  <a href="/users/create-user">Need an account? Click here...</a>
+<div hidden id="new-user">
+  <form id="new-user-form" submit="/users/create-user.json" method="POST">
+  	<div>Email:
+      <input id="new-email" type="text" name="email">
+  	</div>
+    <div>Password:
+      <input id="new-password" type="text" name="password">
+    </div>
+    <div>First Name:
+      <input id="new-fname" type="text" name="fname">
+    </div>
+    <div>Last Name:
+      <input id="new-lname" type="test" name="lname">
+    </div>
+    <div>
+      <input type="submit" value="Create Account">
+    </div>
+    </form>
 </div>
 {% endblock %}
 
