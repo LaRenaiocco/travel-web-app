@@ -1,3 +1,6 @@
+# You asked the question - does the table relationship make sense, 
+# is it performant, etc.? For the data model you described to me 
+# originally, this table structure makes sense.
 """Data Models for travel web app."""
 
 from flask_sqlalchemy import SQLAlchemy
@@ -24,6 +27,11 @@ class User(db.Model):
                     autoincrement=True,
                     primary_key=True)
     email = db.Column(db.String, unique=True)
+    # Have y'all talked about password security? For the MVP
+    # this is clearly not a big deal, but take a look at
+    # https://dev.to/kaelscion/authentication-hashing-in-sqlalchemy-1bem
+    # This is one of many techniques you'll use in a production app
+    # to secure user passwords.
     password = db.Column(db.String)
     fname = db.Column(db.String)
     lname = db.Column(db.String)
@@ -37,6 +45,9 @@ class User(db.Model):
 
 
 class Itinerary(db.Model):
+    # Small nit: this docstring doesn't tell me much since it just 
+    # duplicates the title of the class. Could you tell the reader 
+    # more about what itineraries actually represent in your app?
     """ An Itinerary."""
 
     __tablename__ = "itineraries"
@@ -47,6 +58,8 @@ class Itinerary(db.Model):
     trip_name = db.Column(db.String)
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
+    # I remember we talked about this briefly, but did you
+    # try calculating this automatically (end_date - start_date)?
     num_days = db.Column(db.Integer)
     lat = db.Column(db.Float)
     lng = db.Column(db.Float)
@@ -98,6 +111,13 @@ class Activity(db.Model):
     activity_note = db.Column(db.Text, nullable=True)
 
 
+    # Do you need to define the relationship here, as well as in the Itinerary
+    # class? There you've already added `activity = db.relationship('Activity')`,
+    # and you declare the foreign key relationship here (itinerary_id). 
+    # The docs seem to indicate this duplicate relationship is unnecessary
+    # (https://docs.sqlalchemy.org/en/13/orm/basic_relationships.html#one-to-many)
+    # but I'm not a SQLAlchemy expert. There are a few other places in your model
+    # where you duplicate the relationship (e.g in the Note class).
     itinerary = db.relationship('Itinerary')
 
     def __repr__(self):

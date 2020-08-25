@@ -34,11 +34,15 @@ $.get('/users/trips/api', (data) => {
     
     //   tripInfo.open(basicMap, tripMarker);
 
+    // Check out the section on "Destructuring objects" here:
+    // https://hacks.mozilla.org/2015/05/es6-in-depth-destructuring/
     const activities = response.activities
 
     console.log(activities)
 
     activities.forEach(a => {
+      // Since you only use each of these variables once,
+      // consider passing them directly to the Marker constructor
       const id = a.activity_id;
       const name = a.activity_name;
       const address = a.address;
@@ -54,6 +58,8 @@ $.get('/users/trips/api', (data) => {
           }
       );
       const infoContent = document.createElement('div');
+      // Consider adding a class on the infoContent div
+      // that sets the font-weight, instead of using <strong>
       const strong = document.createElement('strong');
       strong.textContent = name
       infoContent.appendChild(strong);

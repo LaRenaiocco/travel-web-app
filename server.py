@@ -11,6 +11,8 @@ import json
 from datetime import date, time
 
 app = Flask(__name__)
+# Consider storing this as an environment variable
+# so that you're not committing your secret to Git
 app.secret_key = "devLaRena"
 app.jinja_env.undefined = StrictUndefined
 GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
@@ -44,9 +46,14 @@ def login_user():
 
 
 @app.route ('/logout')
+# logut -> logout?
 def logut_user():
     """Log out user."""
 
+    # Consider session.clear()? If you add more data
+    # to the session over time, you'll have to remember
+    # to clear each here. Or do you want to retain
+    # certain data in the session when the user logs out?
     session.pop('USERNAME', None)
     session.pop('TRIP', None)
 
@@ -95,12 +102,15 @@ def new_user():
 def new_itinerary():
     """Creates a new itinerary for a user."""
 
+    # Consider combining these next two lines into one
     email = session["USERNAME"]
     user = helper.get_user_by_email(email)
     trip_name = request.form.get('trip_name')
     start_date = request.form.get('start_date')
     end_date = request.form.get('end_date')
     num_days = crud.calculate_itinerary_days(start_date, end_date)
+    # You can combine these next three lines into one. Check out
+    # https://note.nkmk.me/en/python-multi-variables-values/
     lat_lng = crud.get_latitude_longitude_for_itinerary(trip_name)
     lat = lat_lng[0]
     lng = lat_lng[1]
