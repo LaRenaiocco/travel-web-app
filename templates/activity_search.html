@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Activity Search{% endblock %}
+
+{% block head %}
+  <script src="/static/js/activity_search_map.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCAzkJ73QJXmoq8jsCvLAe0RRqcNG5vOQ&callback=initMap&libraries=places&v=weekly"
+      defer
+    ></script>
+  <style>
+    #map {
+    width: 500px;
+    height: 500px;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+  <div>
+    <h3 id="activity-header">Your trip to {{ trip_name }}</h3>
+  </div>
+
+  <div style="display: none">
+    <input
+      id="pac-input"
+      class="controls"
+      type="text"
+      placeholder="Enter a location"
+    />
+  </div>
+  <div id="map"></div>
+  <div id="infowindow-content">
+    <span id="place-name" class="title"></span><br />
+    <strong>Place ID:</strong> <span id="place-id"></span><br />
+    <span id="place-address"></span>
+    <span id="latlng"></span>
+  </div>
+  <div>
+    <form id="new-activity-form" action="/users/trips/new-activity/api" method="POST">
+      <div>What day is this for? (Optional)
+        <input id="activity-date" type="date" name="activity-date" />
+      </div> 
+      <div>Do you have a time in mind? (Optional)
+        <input id ="activity-time" type="time" name="activity-time" />
+      </div>
+      <textarea id="activity-note" name="activity-note" cols="20" rows="4" placeholder="Add any comments? (Optional)"></textarea>
+      <input type="submit" value="Add to Trip" />
+    </form>
+  </div>
+  <div>
+    Head back to your Itinerary for {{ trip_name }}
+  </div>
+{% endblock %}
+{% block after_body %}
+<script src="/static/js/activity_search.js"></script>
+{% endblock %}

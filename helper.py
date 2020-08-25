@@ -1,13 +1,25 @@
 from model import (db, User, Itinerary, UserItinerary, Activity, Note, connect_to_db)
 import geocoder
 import json
-from datetime import date, time
+from datetime import date, time, timedelta
 
 
 def get_user_by_email(email):
     """Look up user by email."""
 
     return User.query.filter(User.email == email).first()
+
+
+def get_user_fname(email):
+    user = get_user_by_email(email)
+    
+    return user.fname
+
+
+def get_user_id(email):
+    user = get_user_by_email(email)
+
+    return user.user_id
 
 
 def get_itineraries_by_user(user):
@@ -30,6 +42,13 @@ def get_itinerary_by_id(itinerary_id):
     """Look up itinerary by id."""
 
     return Itinerary.query.get(itinerary_id)
+
+def get_itinerary_name(itinerary_id):
+    """Look up trip name by id."""
+
+    itinerary = get_itinerary_by_id(itinerary_id)
+    
+    return itinerary.trip_name
 
 
 def get_notes_by_itinerary_id(itin_id):
@@ -83,33 +102,32 @@ def list_activities_by_itinerary(itin_id):
 def list_notes_by_itinerary(itin_id):
     """serialize notes to jsonify"""
 
-    notes = get_notes_by_itinerary_id(itin_id)
+    notes_author = db.session.query(User.fname, Note.comment, Note.day).join(User)
+    itin_notes = notes_author.filter(Note.itinerary_id == itin_id).all()
     json_notes = []
 
-    for n in notes:
-        n_dict = {'note_id': n.note_id,
-            'itinerary_id': n.itinerary_id,
-            'user_id': n.user_id,
-            'comment': n.comment,
-            'day': n.day
-            }
-
+    for note in itin_notes: 
+        n_dict = {} 
+        n_dict['author'] = note[0] 
+        n_dict['comment'] = note[1] 
+        n_dict['day'] = note[2] 
         json_notes.append(n_dict)
 
     return json_notes
 
-def json_itinerary_activities_notes(itin_id):
+def json_itinerary_activities(itin_id):
+    """ JSON string of itinerary with associated activities for map."""
 
     itinerary = serialize_itinerary_by_id(itin_id)
     activities = list_activities_by_itinerary(itin_id)
-    notes = list_notes_by_itinerary(itin_id)
+    # notes = list_notes_by_itinerary(itin_id)
 
-    json = {'itinerary': itinerary, 'activities': activities, 'notes': notes}
+    json = {'itinerary': itinerary, 'activities': activities}
 
     return json
 
 class DateTimeEncoder(json.JSONEncoder):
-    """makes time and date objects jsonifiable"""
+    """Makes time and date objects jsonifiable."""
 
     def default(self, o):
         if isinstance(o, date):
@@ -120,4 +138,43 @@ class DateTimeEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, o)
 
 
+def create_dates_list(start_date, end_date):
+    """ Return list of days in range of start and end date for itinerary."""
+
+    delta = end_date - start_date
+    dates = []
+    # day = 1
+
+    for d in range(delta.days + 1):
+        dates.append(start_date + timedelta(days = d))
+        # day += 1
+
+    return dates
+
+def jsonify_all_itinerary_data(itin_id):
+    """Create json string of all data for an individual itinerary."""
+
+    itinerary = serialize_itinerary_by_id(itin_id)
+    activities = list_activities_by_itinerary(itin_id)
+    start_date = itinerary['start_date']
+    end_date = itinerary['end_date']
+    dates = create_dates_list(start_date, end_date)
+    notes = list_notes_by_itinerary(itin_id)
+    # print(f'\n\n\n{dates}\n\n{notes}\n\n\n')
+
+    json_dict = {'itinerary': itinerary, 
+                 'activities': activities,
+                 'dates': dates,
+                 'notes': notes
+                 }
+
+    return json_dict
+
+
+
+
+
     
+if __name__ == '__main__':
+    from server import app
+    connect_to_db(app)

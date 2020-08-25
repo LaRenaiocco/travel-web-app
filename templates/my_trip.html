@@ -16,24 +16,32 @@
 {% endblock %}
 
 {% block body %}
-<h1>My Trip to {{ itinerary.trip_name }}</h1>
-<div hidden id="latitude">{{itinerary.lat}}</div>
-<div hidden id="longitude">{{itinerary.lng}}</div>
-<div>
-  {% for a in activities %}
-  <p>{{ a.activity_name }}</p>
-  <p>{{ a.address }}</p>
-  {% endfor %}
+<div id="trip-name"></div>
+<div hidden id="itinerary-id"></div>
+<div id="itinerary">
+  Itinerary
+  <div id="travel-dates"></div>
+  <div id="misc-activities"></div>
 </div>
-<div>
-  {% for n in notes %}
-  <p>{{ n.comment }}</p>
-  {% endfor %}
+<div id="add-actitities">
+  <button id="add-activity-btn" action="/users/trips/activities">Add activities</button>
 </div>
+<div id="notes">Notes</div>
+<div id="add-new-note">
+  <form id="new-note-form" action="/users/trips/new-note.json"  method="POST">
+    <textarea id="comment" name="comment" placeholder="Leave a note for your mates..." rows="4" columns="20"></textarea>
+    <input id="comment-date" type="date" name="date" />
+    <input type="submit" />
+  </form>
+</div>
+<div id="travel-mates">
+  <button id="add-mate-btn">Add a Mate!</button>
+</div>
+<div class="map">
+  <div id="map"></div>
+</div>
+{% endblock %}
 
-    <section class="map">
-        <div id="map"></div>
-    </section>
-
-
+{% block after_body %}
+<script src="/static/js/my_trip.js"></script>
 {% endblock %}

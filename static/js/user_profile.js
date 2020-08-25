@@ -12,3 +12,11 @@ $('#new-trip-form').on('submit', (evt) => {
     // $('ul').append(`<li><a href="/users/trips/${response.itinerary_id}"></a>${response.trip_name}</li>`)
   });
 });
+
+$('#existing-trip-form').on('submit', (evt) => {
+  evt.preventDefault();
+
+  $.post('/users/trips/add-trip.json', {'id': $('#existing-trip-id').val()}, (response) => {
+    $('ul').append(`<li><a href="/users/trips/${response['itinerary_id']}">${response['trip_name']}</a></li>`)
+  });
+});

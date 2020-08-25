@@ -2,14 +2,13 @@
 
 function initMap() {
 
-const latLngObject = {lat: 0, lng: 0}
+  const latLngObject = {lat: 0, lng: 0}
 
-$.get('/users/trips/api', (data) => {
- 
-  const response = JSON.parse(data)
+  $.get('/users/trips/api', (data) => {
+    const response = JSON.parse(data)
 
-  latLngObject['lat'] = response.itinerary.lat;
-  latLngObject['lng'] = response.itinerary.lng;
+    latLngObject['lat'] = response.itinerary.lat;
+    latLngObject['lng'] = response.itinerary.lng;
 
 
     const basicMap = new google.maps.Map(
@@ -19,34 +18,15 @@ $.get('/users/trips/api', (data) => {
           zoom: 7
         }
       );
-    // console.log(basicMap)
-    
-    // const tripMarker = new google.maps.Marker({
-    //     position: latLngObject,
-    //     title: 'My Trip',
-    //     map: basicMap
-    //     }
-    // );
-
-    // const tripInfo = new google.maps.InfoWindow({
-    //     content: `<h2>Let's go to ${response.itinerary.trip_name}</h2>`
-    //   });
-    
-    //   tripInfo.open(basicMap, tripMarker);
 
     const activities = response.activities
-
-    console.log(activities)
 
     activities.forEach(a => {
       const id = a.activity_id;
       const name = a.activity_name;
       const address = a.address;
       const latLng = {'lat': a.lat, 'lng': a.lng};
-      // const date = a.date;
-      // const time = a.time;
 
-      
       const activityMarker = new google.maps.Marker({
           position: latLng,
           title: `id: ${id}, ${name}`,

@@ -23,8 +23,8 @@
     {% endfor %}
   </ul>
 </div>
-<div id="new-trip-btn">
-Add New Trip
+<div >
+  <button id="new-trip-btn">Add New Trip</button>
 </div>
 <div id="add-new-trip">
   <form id="new-trip-form" action="/users/trips/new-trip.json" method="POST">
@@ -38,6 +38,17 @@ Add New Trip
       <input id="return-date" type="date" name="return" />
     </div>
     <div>
+      <input type="submit" />
+    </div>
+  </form>
+</div>
+<div>
+  <button id="existing-trip-button">Join an existing trip!</button>
+</div>
+<div id="add-existing-trip">
+  <form id="existing-trip-form" action="/users/trips/add-trip.json" method="POST">
+    <div>You should have received a trip id # from your travel mate.  Please enter it here.
+      <input id="existing-trip-id" type="text" name="id" />
       <input type="submit" />
     </div>
   </form>
