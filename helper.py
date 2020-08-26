@@ -1,3 +1,5 @@
+"""Helper functions to assist in server flow."""
+
 from model import (db, User, Itinerary, UserItinerary, Activity, Note, connect_to_db)
 import json
 from datetime import date, time, timedelta
