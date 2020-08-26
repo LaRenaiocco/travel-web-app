@@ -221,13 +221,11 @@ def add_new_activity():
     if activity_note == '':
         activity_note = None
 
-    new = crud.create_activity(itinerary_id, activity_name, address, 
+    crud.create_activity(itinerary_id, activity_name, address, 
                         lat, lng, activity_day, activity_time, 
                         activity_note)
 
-    return_alert = 'This activity has been added to your trip' 
-
-    return jsonify(return_alert)
+    return jsonify('This activity has been added to your trip')
 
 
 
