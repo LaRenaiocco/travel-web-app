@@ -1,5 +1,5 @@
 "use strict"
-
+//  Get all itinerary, activity and note data from DB to render full itinerary.
 $.get('/users/itinerary/api', (data) => {
 
     const response = JSON.parse(data)
@@ -11,6 +11,7 @@ $.get('/users/itinerary/api', (data) => {
     $('#trip-name').html(`${itinerary.trip_name}`);
     $('#itinerary-id').html(`${itinerary.itinerary_id}`);
 
+    //  Sets up base itinerary calender based on days of trip.
     let day = 1
 
     dates.forEach(d => {
@@ -22,6 +23,8 @@ $.get('/users/itinerary/api', (data) => {
         day = day + 1
     });
 
+    // Adds activities to the appropriate day or to the bottom of the list 
+    // if no day specified.
     activities.forEach(a => {
 
         if (a.activity_day === null) {
@@ -68,6 +71,8 @@ $.get('/users/itinerary/api', (data) => {
             }
         }
     })
+    // Adds note to the speicied day or to the notes section
+    // if no day specified.
     notes.forEach(n => {
         if (n.day === null) {
             const note = document.createElement('div')
@@ -81,8 +86,17 @@ $.get('/users/itinerary/api', (data) => {
             $(`#${n.day}`).append(note)
         }
     })
+
+    // Sets note date picker to days of trip.
+    const min = itinerary.start_date;
+    const max = itinerary.end_date;
+    
+    document.getElementById("comment-date").min = min
+    document.getElementById("comment-date").max = max
 })
 
+
+//  Submits a new note to the DB and renders it to the Itinerary.
 $('#new-note-form').on('submit', (evt) => {
     evt.preventDefault();
 
@@ -114,11 +128,13 @@ $('#new-note-form').on('submit', (evt) => {
     })
 })
 
+//  Alerts user of Itinerary ID to link another user to the same itinerary.
 $('#add-mate-btn').on('click', () => {
     const itinAlert = $('#itinerary-id').text()
     alert(`Please give your mate this id number to link your trips: ${itinAlert}`)
 })
 
+//  redirects to the activity search page.
 $('#add-activity-btn').on('click', () => {
     document.location.href = '/users/trips/activities'
 })

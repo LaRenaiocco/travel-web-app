@@ -26,7 +26,7 @@
 <div >
   <button id="new-trip-btn">Add New Trip</button>
 </div>
-<div id="add-new-trip">
+<div hidden id="add-new-trip">
   <form id="new-trip-form" action="/users/trips/new-trip.json" method="POST">
     <div>Where are you going for your next adventure?
       <input id="city-input" type="text" name="city" placeholder="city, state or country"/>
@@ -45,7 +45,7 @@
 <div>
   <button id="existing-trip-button">Join an existing trip!</button>
 </div>
-<div id="add-existing-trip">
+<div hidden id="add-existing-trip">
   <form id="existing-trip-form" action="/users/trips/add-trip.json" method="POST">
     <div>You should have received a trip id # from your travel mate.  Please enter it here.
       <input id="existing-trip-id" type="text" name="id" />

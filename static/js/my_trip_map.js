@@ -1,9 +1,10 @@
 "use strict"
-
+// create map based on itinerary and activity information in DB.
 function initMap() {
 
   const latLngObject = {lat: 0, lng: 0}
 
+  //  Get itinerary and activity information
   $.get('/users/trips/api', (data) => {
     const response = JSON.parse(data)
 
@@ -35,6 +36,7 @@ function initMap() {
       );
       const infoContent = document.createElement('div');
       const strong = document.createElement('strong');
+      strong.setAttribute('class', 'marker-name');
       strong.textContent = name
       infoContent.appendChild(strong);
       infoContent.appendChild(document.createElement('br'));
@@ -49,8 +51,9 @@ function initMap() {
       
       activityMarker.addListener('click', function() {
           activityInfo.open(basicMap, activityMarker);
+
       
       })
-      })
+    })
   });
 }
