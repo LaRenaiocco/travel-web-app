@@ -33,8 +33,6 @@ class User(db.Model):
     lname = db.Column(db.String)
     photo_path = db.Column(db.String, nullable=True)
 
-    note = db.relationship('Note')
-
 
     def __repr__(self):
         return f'< User Object user_id: {self.user_id} email: {self.email} >'
@@ -101,6 +99,7 @@ class Activity(db.Model):
 
     itinerary = db.relationship('Itinerary', backref='activity')
 
+
     def __repr__(self):
         return f'< Activity Object activity_id: {self.activity_id} activity_name: {self.activity_name} >'
 
@@ -122,6 +121,7 @@ class Note(db.Model):
 
     itinerary = db.relationship('Itinerary', backref='note')
     author = db.relationship('User', backref='note')
+
 
     def __repr__(self):
         return f'< Note Object note_id: {self.note_id} user_id: {self.user_id} >'
