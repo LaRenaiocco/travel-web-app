@@ -86,7 +86,6 @@ $.get('/users/itinerary/api', (data) => {
             $(`#${n.day}`).append(note)
         }
     })
-
     // Sets note date picker to days of trip.
     const min = itinerary.start_date;
     const max = itinerary.end_date;
@@ -94,6 +93,8 @@ $.get('/users/itinerary/api', (data) => {
     document.getElementById("comment-date").min = min
     document.getElementById("comment-date").max = max
 })
+
+
 
 
 //  Submits a new note to the DB and renders it to the Itinerary.
@@ -138,3 +139,23 @@ $('#add-mate-btn').on('click', () => {
 $('#add-activity-btn').on('click', () => {
     document.location.href = '/users/trips/activities'
 })
+
+window.onbeforeprint = function() {
+    $('#pretty-print').hide()
+    $('.itinerary-note').hide()
+    $('#notes').hide()
+    $('#add-activity-btn').hide()
+    $('#add-new-note').hide()
+    $('#travel-mates').hide()
+    $('.map').hide()
+}
+
+window.onafterprint = function() {
+    $('#pretty-print').show()
+    $('.itinerary-note').show()
+    $('#notes').show()
+    $('#add-activity-btn').show()
+    $('#add-new-note').show()
+    $('#travel-mates').show()
+    $('.map').show()
+}

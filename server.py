@@ -1,13 +1,14 @@
 """ Server for Operation Adventure."""
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect, jsonify)
+                   redirect, jsonify, make_response)
 from jinja2 import StrictUndefined
 from model import connect_to_db
 import crud
 import helper
 import os
 import json
+from passlib.hash import argon2
 from datetime import date, time
 
 app = Flask(__name__)
@@ -28,18 +29,26 @@ def login_user():
     """ Log in user."""
 
     email = request.form['email']
-    password = request.form['password']
+    incoming_password = request.form['password']
     user = helper.get_user_by_email(email)
     if user == None:
         flash('No account with this email exists. Please try again.')
         return redirect ('/')
     else:
-        if password != user.password:
-            flash('Incorrect Password. Please try again.')
-            return redirect ('/')
-        else:
+        if argon2.verify(incoming_password, user.password):
             session['USERNAME'] = user.email
-            return redirect (f'users/profile/{user.fname}')
+            return redirect (f'users/profile/{user.fname}')  
+        else:
+            flash('Incorrect Password. Please try again.')
+            return redirect ('/')                     
+
+    # else:
+        # if incoming_password != user.password:
+        #     flash('Incorrect Password. Please try again.')
+        #     return redirect ('/')
+        # else:
+        #     session['USERNAME'] = user.email
+        #     return redirect (f'users/profile/{user.fname}')
 
 
 @app.route ('/logout')
@@ -183,6 +192,12 @@ def add_new_activity():
                         lat, lng, activity_day, activity_time, 
                         activity_note)
     return jsonify('This activity has been added to your trip')
+
+
+@app.route('/pdf')
+def render_pdf():
+    
+    return render_template('pdf.html')
 
 
 

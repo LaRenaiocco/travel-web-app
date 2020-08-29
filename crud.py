@@ -4,6 +4,7 @@ from model import (db, User, Itinerary, UserItinerary, Activity, Note, connect_t
 from datetime import datetime 
 import geocoder
 import os
+from passlib.hash import argon2
 
 GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
 
@@ -12,7 +13,7 @@ def create_user(email, password, fname, lname, photo_path=None):
     """Create and return a new user."""
 
     user = User(email=email, 
-        password=password, 
+        password=argon2.hash(password), 
         fname=fname, 
         lname=lname,
         photo_path=photo_path)
@@ -81,6 +82,11 @@ def create_note(itinerary_id, user_id, comment, day=None):
     db.session.commit()
 
     return note 
+
+# def encrypt_password(password):
+#     """ encrypts user password to be stored in database."""
+
+#     return argon2.hash(password)
    
 
 def calculate_itinerary_days(start_date, end_date):

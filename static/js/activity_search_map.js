@@ -1,10 +1,10 @@
 
 
-
+//  Build activity search map
 function initMap() {
 
   const latLngObject = {lat: 0, lng: 0}
-
+  //  get latitude and longitude from database to build map
   $.get('/users/trips/activities.json', (data) => {
     const response = JSON.parse(data)
 
@@ -15,12 +15,13 @@ function initMap() {
       center: latLngObject,
       zoom: 7
     });
+    //  Search bar forp map
     const input = document.getElementById("pac-input");
     const autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.bindTo("bounds", map);
-    // Specify just the place data fields that you need.
     autocomplete.setFields(["place_id", "geometry", "name", "formatted_address"]);
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(input);
+    //  info window pop up after selecting search item
     const infowindow = new google.maps.InfoWindow();
     const infowindowContent = document.getElementById("infowindow-content");
     infowindow.setContent(infowindowContent);
@@ -43,10 +44,7 @@ function initMap() {
         }
         map.setZoom(11);
         map.setCenter(results[0].geometry.location);
-        
-
         // Set the position of the marker using the place ID and location.
-  
         marker.setPlace({
           placeId: place.place_id,
           location: results[0].geometry.location

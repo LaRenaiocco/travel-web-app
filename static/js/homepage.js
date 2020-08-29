@@ -1,10 +1,17 @@
 "use strict"
-
+//  switch home screen to create new user information
 $('#create-user-link').on('click', () => {
     $('#new-user').show()
     $('#login-info').hide()
-})
+});
 
+//  switch home screen to login information
+$('#back-to-login').on('click', () => {
+    $('#new-user').hide()
+    $('#login-info').show()
+});
+
+// submit new user form to the database and return to login page on success
 $('#new-user-form').on('submit', (evt) => {
     evt.preventDefault();
 
@@ -21,5 +28,5 @@ $('#new-user-form').on('submit', (evt) => {
         alert(response)
     $('#new-user').hide()
     $('#login-info').show()
-    })
-})
+    });
+});

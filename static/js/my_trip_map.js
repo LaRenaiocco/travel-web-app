@@ -4,14 +4,14 @@ function initMap() {
 
   const latLngObject = {lat: 0, lng: 0}
 
-  //  Get itinerary and activity information
+  //  Get itinerary and activity information from database
   $.get('/users/trips/api', (data) => {
     const response = JSON.parse(data)
 
     latLngObject['lat'] = response.itinerary.lat;
     latLngObject['lng'] = response.itinerary.lng;
 
-
+    // create map
     const basicMap = new google.maps.Map(
         document.querySelector('#map'),
         {
@@ -19,14 +19,10 @@ function initMap() {
           zoom: 7
         }
       );
-
-    // Check out the section on "Destructuring objects" here:
-    // https://hacks.mozilla.org/2015/05/es6-in-depth-destructuring/
+    //  add activity data to map on markers
     const activities = response.activities
 
     activities.forEach(a => {
-      // Since you only use each of these variables once,
-      // consider passing them directly to the Marker constructor
       const id = a.activity_id;
       const name = a.activity_name;
       const address = a.address;
@@ -38,13 +34,12 @@ function initMap() {
           map: basicMap
           }
       );
+      // marker info content
       const infoContent = document.createElement('div');
-      // Consider adding a class on the infoContent div
-      // that sets the font-weight, instead of using <strong>
-      const strong = document.createElement('strong');
-      strong.setAttribute('class', 'marker-name');
-      strong.textContent = name
-      infoContent.appendChild(strong);
+      const placeName = document.createElement('div');
+      placeName.setAttribute('class', 'marker-name');
+      placeName.textContent = name
+      infoContent.appendChild(placeName);
       infoContent.appendChild(document.createElement('br'));
       
       const text = document.createElement('text');

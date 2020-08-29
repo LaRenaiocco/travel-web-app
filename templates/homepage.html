@@ -1,8 +1,18 @@
-{% extends 'base.html' %}
-
-{% block title %}Operation Adventure{% endblock %}
-
-{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Operation Adventure</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+          crossorigin="anonymous">
+  </script>
+</head>
+<body>
+  {% for msg in get_flashed_messages() %}
+    <p class="flash-msg">
+      {{ msg }}
+    </p>
+  {% endfor %}
 <div>
 	<h1>Operation Adventure</h1>
 </div>
@@ -43,10 +53,8 @@
     <div>
       <input type="submit" value="Create Account">
     </div>
-    </form>
+  </form>
+  <button id="back-to-login">Return to Login</button>
 </div>
-{% endblock %}
 
-{% block after_body %}
 <script src="/static/js/homepage.js"></script>
-{% endblock %}
