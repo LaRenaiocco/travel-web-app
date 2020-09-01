@@ -53,6 +53,18 @@
     </div>
   </form>
 </div>
+<div>
+  Want to stay up to date with your trip?  When your travel mates add to the trip you can get a text!
+  <button id="trip-text-btn">Get text updates</button>
+  <button id="disable-trip-text">Disable text updates</button>
+</div>
+<div hidden id="get-trip-update">
+  <form id="phone-form">
+    <label for="phone-num">Enter your phone number for updates</label>
+    <input id="phone-num" type="number" name="phone-num" placeholder="phone number" minlength="10" maxlength="10" />
+    <input type="submit" />
+  </form>
+</div>
 
 {% endblock %}
 

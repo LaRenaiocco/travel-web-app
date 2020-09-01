@@ -172,8 +172,10 @@ class DateTimeEncoder(json.JSONEncoder):
 
 def add_phone_to_user(email, phone):
     """Add phone number to user object in database"""
-
-    phone = '+1' + phone
+    if phone == 'None':
+        phone = None
+    else:
+        phone = '+1' + phone
     user = get_user_by_email(email)
     user.phone = phone
     db.session.commit()
@@ -195,7 +197,10 @@ def users_to_notify(itinerary_id, email):
     return phone_list
 
 
-def send_text_update(itinerary_id, email, trip_name, author):
+# def registration_text_update():
+
+
+def send_itinerary_text_update(itinerary_id, email, trip_name, author):
     """Sends text updates to users via Twilio"""
 
     client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)

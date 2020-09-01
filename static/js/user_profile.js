@@ -38,3 +38,25 @@ $('#existing-trip-form').on('submit', (evt) => {
     $('#add-existing-trip').hide();
   });
 });
+
+// shows add phone number form
+$('#trip-text-btn').on('click', () => {
+  $('#get-trip-update').show();
+})
+
+$('#phone-form').on('submit', (evt) => {
+  evt.preventDefault();
+
+  $.post('/users/phone-update/api', {'phone': $('#phone-num').val()}, (response) => {
+    document.getElementById("phone-form").reset();
+    $('#get-trip-update').hide();
+    alert(response)
+  })
+})
+
+// removes a phone number from the database
+$('#disable-trip-text').on('click', () => {
+  $.post('/users/phone-update/api', {'phone': 'None'}, (response) => {
+    alert(response)
+  })  
+})

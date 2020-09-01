@@ -76,6 +76,21 @@ def show_user_profile(fname):
     return render_template('user_profile.html', user=user, user_itins=user_itins)  
 
 
+@app.route('/users/phone-update/api', methods=['POST'])
+def update_user_phone():
+    """Adds or removes a user phone number"""
+
+    email = session['USERNAME']
+    phone = request.form['phone']
+    print(f'\n\n{phone}, {type(phone)}\n\n')
+    helper.add_phone_to_user(email, phone)
+    if phone == None:
+        return jsonify('You have disabled text updates.')
+    else:
+        return jsonify('You are signed up for trip updates by text!')
+
+
+
 @app.route('/users/trips/new-trip.json', methods=['POST'])
 def new_itinerary():
     """Creates a new itinerary for a user and returns data as JSON."""
@@ -140,7 +155,7 @@ def return_new_note():
     if date == '':
         date = None
     crud.create_note(itinerary_id, user_id, comment, date)
-    helper.send_text_update(itinerary_id, email, trip_name, author)
+    helper.send_itinerary_text_update(itinerary_id, email, trip_name, author)
     json_data = {'author': author, 'comment': comment, 'day': date}
 
     return json.dumps(json_data, cls=helper.DateTimeEncoder)
@@ -189,7 +204,7 @@ def add_new_activity():
                         lat, lng, activity_day, activity_time, 
                         activity_note)
     # triggers twilio text for users connected in this trip.
-    helper.send_text_update(itinerary_id, email, trip_name, author)
+    helper.send_itinerary_text_update(itinerary_id, email, trip_name, author)
     return jsonify('This activity has been added to your trip')
 
 
