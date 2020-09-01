@@ -16,11 +16,12 @@
                 {{ msg }}
             </p>
         {% endfor %}
-        <!-- <div class="navbar">
-            <a href='/'>
-        </div> -->
+        <div class="navbar">
+            <a href="/users/profile/<fname>">My Profile</a>
+            <a href="/logout">Logout</a>
+        </div>
         {% block body %}{% endblock %}
-        
+        <script src="/static/js/navbar.js"></script>
         {% block after_body %}{% endblock %}
     </body>
 </html>

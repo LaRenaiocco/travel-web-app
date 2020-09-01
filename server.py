@@ -42,14 +42,6 @@ def login_user():
             flash('Incorrect Password. Please try again.')
             return redirect ('/')                     
 
-    # else:
-        # if incoming_password != user.password:
-        #     flash('Incorrect Password. Please try again.')
-        #     return redirect ('/')
-        # else:
-        #     session['USERNAME'] = user.email
-        #     return redirect (f'users/profile/{user.fname}')
-
 
 @app.route ('/logout')
 def logout_user():
@@ -136,9 +128,10 @@ def return_json_for_itinerary():
 
 @app.route('/users/trips/new-note.json', methods=['POST'])
 def return_new_note():
-    """Saves new note to DB and returns to page in JSON."""
+    """Saves new note to DB, notifies users by text and returns to page in JSON."""
 
     itinerary_id = session['TRIP']
+    trip_name = helper.get_itinerary_name(itinerary_id)
     email = session["USERNAME"]
     user_id = helper.get_user_id(email)
     author = helper.get_user_fname(email)
@@ -147,7 +140,9 @@ def return_new_note():
     if date == '':
         date = None
     crud.create_note(itinerary_id, user_id, comment, date)
+    helper.send_text_update(itinerary_id, email, trip_name, author)
     json_data = {'author': author, 'comment': comment, 'day': date}
+
     return json.dumps(json_data, cls=helper.DateTimeEncoder)
     
 
@@ -171,13 +166,15 @@ def add_new_activity():
     """adds new activity to database."""
 
     itinerary_id = session['TRIP']
+    trip_name = helper.get_itinerary_name(itinerary_id)
+    email = session['USERNAME']
+    author = helper.get_user_fname(email)
     activity_name = request.form['name']
     address = request.form['address']
     lat_lng = request.form['latlng']
-    lat_lng = lat_lng.strip('()')
-    lat_lng_list = lat_lng.split(', ')
-    lat = float(lat_lng_list[0])
-    lng = float(lat_lng_list[1])
+    lat_lng = lat_lng.strip('()').split(', ')
+    lat = float(lat_lng[0])
+    lng = float(lat_lng[1])
     # lat, lng = float(lat_lng_list) - error.  reassess later
     activity_day = request.form['day']
     if activity_day == '':
@@ -191,13 +188,10 @@ def add_new_activity():
     crud.create_activity(itinerary_id, activity_name, address, 
                         lat, lng, activity_day, activity_time, 
                         activity_note)
+    # triggers twilio text for users connected in this trip.
+    helper.send_text_update(itinerary_id, email, trip_name, author)
     return jsonify('This activity has been added to your trip')
 
-
-@app.route('/pdf')
-def render_pdf():
-    
-    return render_template('pdf.html')
 
 
 

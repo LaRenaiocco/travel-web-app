@@ -15,8 +15,8 @@ model.connect_to_db(server.app)
 model.db.create_all()
 
 # Create users
-crud.create_user('Alex@alex.com', 'test', 'Alex', 'Arbour')
-crud.create_user('Bobby@bobby.com', 'test', 'Bobby', 'Bobbington')
+crud.create_user('Alex@alex.com', 'test', 'Alex', 'Arbour', '+17073182084')
+crud.create_user('Bobby@bobby.com', 'test', 'Bobby', 'Bobbington', '+17073182084')
 crud.create_user('Claire@claire.com', 'test', 'Claire', 'Carson')
 crud.create_user('Dawna@dawna.com', 'test', 'Dawna', 'Darcy')
 crud.create_user('Eunice@eunice.com', 'test', 'Eunice', 'Ellis')

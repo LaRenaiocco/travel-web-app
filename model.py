@@ -31,6 +31,7 @@ class User(db.Model):
     password = db.Column(db.String)
     fname = db.Column(db.String)
     lname = db.Column(db.String)
+    phone = db.Column(db.String, nullable=True)
     photo_path = db.Column(db.String, nullable=True)
 
 

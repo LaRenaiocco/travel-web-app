@@ -19,9 +19,13 @@ function initMap() {
           zoom: 7
         }
       );
-    //  add activity data to map on markers
+    // Check out the section on "Destructuring objects" here:
+    // https://hacks.mozilla.org/2015/05/es6-in-depth-destructuring/
     const activities = response.activities
 
+    activities.forEach(a => {
+      // Since you only use each of these variables once,
+      // consider passing them directly to the Marker constructor
     activities.forEach(a => {
       const id = a.activity_id;
       const name = a.activity_name;

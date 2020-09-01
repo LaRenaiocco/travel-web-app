@@ -2,8 +2,16 @@
 
 from model import (db, User, Itinerary, UserItinerary, Activity, Note, connect_to_db)
 import json
+import os
 from datetime import date, time, timedelta
+from twilio.rest import Client
 
+TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
+TWILIO_PHONE = os.environ['TWILIO_PHONE']
+
+
+""" Database query functions"""
 
 def get_user_by_email(email):
     """Look up user by email."""
@@ -63,6 +71,9 @@ def get_activities_by_itinerary_id(itin_id):
 
     return Activity.query.filter_by(itinerary_id = itin_id).all()
 
+
+""" Compile data in JSON ready format"""
+
 def serialize_itinerary_by_id(itin_id):
     """serialize itinerary to jsonify"""
 
@@ -118,16 +129,6 @@ def json_itinerary_activities(itin_id):
     return {'itinerary': itinerary, 'activities': activities}
 
 
-def create_dates_list(start_date, end_date):
-    """ Return list of days in range of start and end date for itinerary."""
-
-    delta = end_date - start_date
-    dates = []
-    for d in range(delta.days + 1):
-        dates.append(start_date + timedelta(days = d))
-    return dates
-
-
 def jsonify_all_itinerary_data(itin_id):
     """Return all data for an individual itinerary in jsonable format."""
 
@@ -143,6 +144,17 @@ def jsonify_all_itinerary_data(itin_id):
                  'notes': notes
                  }
 
+""" Functions to work with data data""" 
+
+def create_dates_list(start_date, end_date):
+    """ Return list of days in range of start and end date for itinerary."""
+
+    delta = end_date - start_date
+    dates = []
+    for d in range(delta.days + 1):
+        dates.append(start_date + timedelta(days = d))
+    return dates
+
 
 class DateTimeEncoder(json.JSONEncoder):
     """Makes time and date objects jsonifiable."""
@@ -154,6 +166,53 @@ class DateTimeEncoder(json.JSONEncoder):
             return o.isoformat()
 
         return json.JSONEncoder.default(self, o)
+
+
+""" Twilio notification functions"""
+
+def add_phone_to_user(email, phone):
+    """Add phone number to user object in database"""
+
+    phone = '+1' + phone
+    user = get_user_by_email(email)
+    user.phone = phone
+    db.session.commit()
+
+    return user
+
+
+def users_to_notify(itinerary_id, email):
+    """ Gets users associated with an itinerary to notify of changes
+    excluding user who made the change."""
+
+    users = db.session.query(UserItinerary.user_id, User.phone, User.email).join(User).filter(UserItinerary.itinerary_id == itinerary_id).all()
+    phone_list = []
+    #user[1] = user phone, user[2]=user email
+    for user in users:
+        if user[1] != None and user[2] != email:
+            phone_list.append(user[1])
+
+    return phone_list
+
+
+def send_text_update(itinerary_id, email, trip_name, author):
+    """Sends text updates to users via Twilio"""
+
+    client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+    phone_list = users_to_notify(itinerary_id, email)
+    if phone_list != []:
+        for phone_num in phone_list:
+            message = client.messages.create(
+                to=phone_num,
+                from_=TWILIO_PHONE,
+                body=f'Your trip to {trip_name} has been updated by {author}'
+            )
+        print(message.sid)
+
+
+
+
+
 
 
     
