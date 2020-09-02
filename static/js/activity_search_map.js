@@ -13,9 +13,10 @@ function initMap() {
 
     const map = new google.maps.Map(document.getElementById("map"), {
       center: latLngObject,
-      zoom: 7
+      zoom: 8,
+      mapTypeControl: false
     });
-    //  Search bar forp map
+    //  Search bar for map
     const input = document.getElementById("pac-input");
     const autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.bindTo("bounds", map);
@@ -54,9 +55,12 @@ function initMap() {
         infowindowContent.children["place-id"].textContent = place.place_id;
         infowindowContent.children["place-address"].textContent =
           results[0].formatted_address;
-          infowindowContent.children["latlng"].textContent = results[0].geometry.location
+        infowindowContent.children["latlng"].textContent = results[0].geometry.location
         infowindow.open(map, marker);
-
+        //  does not work...
+        // $('#new-activity-form').on('submit', () => {
+        //   infowindow.close()
+        // })
       });
     });
   });

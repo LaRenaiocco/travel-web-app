@@ -1,26 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ user.fname }}'s Profile{% endblock %}
+{% block title %}{{ fname }}'s Profile{% endblock %}
 
 
 {% block body %}
 <h1> User profile page</h1>
-<div id="user-name">
-  <h3>{{ user.fname }} {{ user.lname}}</h3>
+<div>
+  <h3 id="user-name"></h3>
 </div>
-<div id="user-email">
-  <p>{{ user.email }}</p>
+<div>
+  <p id="user-email"></p>
 </div>
 <div>
   <h2>Itineraries</h2>
-  <ul>
-    {% for itin in user_itins %}
-      <div>
-        <li>
-          <a href="/users/trips/{{ itin.itinerary_id }}">{{ itin.trip_name }}</a>
-        </li>
-      </div>
-    {% endfor %}
+  <ul id="user-itineraries">
   </ul>
 </div>
 <div >

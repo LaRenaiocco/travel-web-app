@@ -28,7 +28,7 @@ crud.create_user('Kat@kat.com', 'test', 'Kat', 'King')
 
 
 #create itineraries
-crud.create_itinerary('London, UK', '2021-01-01', '2021-01-08', 8, 51.4141076, -1.4000882)
+crud.create_itinerary('London, UK', '2021-01-01', '2021-01-08', 8, 51.528308, -0.3817846)
 crud.create_itinerary('Bali, Indonesia', '2021-05-05', '2021-05-15', 11, -8.4556973, 114.510954)
 crud.create_itinerary('San Francisco, CA', '2020-12-01', '2020-12-05', 5, 37.7576793, -122.5076413)
 crud.create_itinerary('Chicago, IL', '2020-11-25', '2020-11-28', 4, 41.8333925, -88.0121674)

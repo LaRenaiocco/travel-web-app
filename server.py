@@ -71,9 +71,17 @@ def new_user():
 def show_user_profile(fname):
     """ Show logged in user profile."""
 
+    return render_template('user_profile.html', fname=fname)
+
+
+@app.route('/users/profile/api')
+def get_user_information():
+
     user = helper.get_user_by_email(session['USERNAME'])
     user_itins = helper.get_itineraries_by_user(user)
-    return render_template('user_profile.html', user=user, user_itins=user_itins)  
+    return jsonify({'fname': user.fname, 'lname': user.lname, 'email': user.email, 
+                    'itineraries': user_itins})  
+
 
 
 @app.route('/users/phone-update/api', methods=['POST'])

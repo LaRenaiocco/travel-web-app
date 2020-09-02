@@ -32,6 +32,7 @@ $('#new-activity-form').on('submit', (evt) => {
 
     document.getElementById("new-activity-form").reset();
 
+
     $.post('/users/trips/new-activity/api', formData, (response) => {
 
         alert(response)

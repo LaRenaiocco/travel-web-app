@@ -1,5 +1,26 @@
 "use strict"
 
+// Gets user and itinerary data to render profile page
+$.get('/users/profile/api', (data) => {
+
+  console.log(data)
+  const fname = data.fname
+  const lname = data.lname
+  const email = data.email
+  const itineraries = data.itineraries
+  console.log(itineraries)
+
+  $('#user-name').text(fname, lname)
+  $('#user-email').text(email)
+
+  itineraries.forEach(i => {
+    $('#user-itineraries').append(`<li><a href="/users/trips/${i.itinerary_id}">${i.trip_name}</a></li>`)
+  })
+  // for (const itin in itineraries) {
+  //   $('#user-itineraries').append(`<li><a href="/users/trips/${itin.itinerary_id}">${itin.trip_name}</a></li>`)
+  // }
+})
+
 // Shows new trip form
 $('#new-trip-btn').on('click', () => {
   $('#add-new-trip').show();

@@ -36,16 +36,24 @@ def get_user_id(email):
 def get_itineraries_by_user(user):
     """Look up itineraries associated with a specified user."""
 
-    user_itin_ids = UserItinerary.query.filter(UserItinerary.user_id 
-                                                == user.user_id).all()
-    itinerary_ids = []
-    for itin in user_itin_ids:
-        itinerary_ids.append(itin.itinerary_id)
-    itineraries = []
-    for ids in itinerary_ids:
-        item = Itinerary.query.get(ids)
-        itineraries.append(item)
-    return itineraries
+    itins = db.session.query(UserItinerary.itinerary_id, Itinerary.trip_name).join(Itinerary).filter(UserItinerary.user_id == user.user_id).all()
+    itins_list = []
+    for itin in itins:
+        itin_dict = {'itinerary_id': itin[0], 'trip_name': itin[1]}
+        itins_list.append(itin_dict)
+
+    return itins_list
+
+    # user_itin_ids = UserItinerary.query.filter(UserItinerary.user_id 
+    #                                             == user.user_id).all()
+    # itinerary_ids = []
+    # for itin in user_itin_ids:
+    #     itinerary_ids.append(itin.itinerary_id)
+    # itineraries = []
+    # for ids in itinerary_ids:
+    #     item = Itinerary.query.get(ids)
+    #     itineraries.append(item)
+    # return itineraries
 
 
 def get_itinerary_by_id(itinerary_id):
@@ -144,7 +152,7 @@ def jsonify_all_itinerary_data(itin_id):
                  'notes': notes
                  }
 
-""" Functions to work with data data""" 
+""" Functions to work with date data""" 
 
 def create_dates_list(start_date, end_date):
     """ Return list of days in range of start and end date for itinerary."""
