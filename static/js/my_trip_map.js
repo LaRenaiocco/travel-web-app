@@ -23,7 +23,6 @@ function initMap() {
     // https://hacks.mozilla.org/2015/05/es6-in-depth-destructuring/
     const activities = response.activities
 
-    activities.forEach(a => {
       // Since you only use each of these variables once,
       // consider passing them directly to the Marker constructor
     activities.forEach(a => {
@@ -56,8 +55,18 @@ function initMap() {
       
       activityMarker.addListener('click', function() {
           activityInfo.open(basicMap, activityMarker);
-
-      
+          for (const a of document.getElementsByClassName('activity-name')) {
+            if (a.textContent.includes(name)) {
+              a.style.color = 'blue'
+            }
+          }
+      })
+      activityInfo.addListener('closeclick', function() {
+        for (const a of document.getElementsByClassName('activity-name')) {
+          if (a.textContent.includes(name)) {
+            a.style.color = 'black'
+          }
+        }
       })
     })
   });
