@@ -23,11 +23,6 @@ class User(db.Model):
                     autoincrement=True,
                     primary_key=True)
     email = db.Column(db.String, unique=True)
-    # Have y'all talked about password security? For the MVP
-    # this is clearly not a big deal, but take a look at
-    # https://dev.to/kaelscion/authentication-hashing-in-sqlalchemy-1bem
-    # This is one of many techniques you'll use in a production app
-    # to secure user passwords.
     password = db.Column(db.String)
     fname = db.Column(db.String)
     lname = db.Column(db.String)
@@ -126,6 +121,40 @@ class Note(db.Model):
 
     def __repr__(self):
         return f'< Note Object note_id: {self.note_id} user_id: {self.user_id} >'
+
+
+def example_data():
+    """Data for tests"""
+
+    User.query.delete()
+    Itinerary.query.delete()
+    UserItinerary.query.delete()
+    Activity.query.delete()
+    Note.query.delete()
+
+    user1 = User(email='Alex@alex.com', password='test', fname='Alex', 
+                lname='Arbour', phone='7073182084')
+    user2 = User(email='Bobby@bobby.com', password='test', fname='Bobby',
+                lname='Bobbington', phone=None)
+    london = Itinerary(trip_name='London, UK', start_date='2021-01-01',
+                end_date='2021-01-08', num_days=8, lat=51.528308, lng=-0.3817846)
+    ui = UserItinerary(user_id=1, itinerary_id=1)
+    lyceum = Activity(itinerary_id=1, activity_name='Lyceum Theatre', 
+                address='21 Wellington St, Covent Garden, London WC2E 7RQ, United Kingdom', 
+                lat=51.511619, lng=-0.1223251, activity_day='2021-01-02', activity_time='20:00')
+    museum = Activity(itinerary_id=1, activity_name='National Portrait Gallery', 
+                address="St. Martin's Pl, Charing Cross, London WC2H 0HE, United Kingdom", 
+                lat=51.5094269, lng=-0.1303103)
+    note1 = Note(itinerary_id=1, user_id=1, comment='Lets make sure we go to high tea!',
+                day=None)
+    note2 = Note(itinerary_id=1, user_id=2, comment='Lets have a picnic in Hyde Park', 
+                day='2021-01-05')
+
+    db.session.add_all([user1, user2, london, ui, lyceum, museum, note1, note2])
+    db.session.commit()
+
+
+
     
 if __name__ == '__main__':
     from server import app

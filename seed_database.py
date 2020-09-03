@@ -41,7 +41,6 @@ crud.create_user_itinerary(2, 1)
 crud.create_user_itinerary(3, 1)
 crud.create_user_itinerary(4, 1)
 
-crud.create_user_itinerary(10, 2)
 crud.create_user_itinerary(9, 2)
 crud.create_user_itinerary(8, 2)
 

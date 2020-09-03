@@ -44,17 +44,6 @@ def get_itineraries_by_user(user):
 
     return itins_list
 
-    # user_itin_ids = UserItinerary.query.filter(UserItinerary.user_id 
-    #                                             == user.user_id).all()
-    # itinerary_ids = []
-    # for itin in user_itin_ids:
-    #     itinerary_ids.append(itin.itinerary_id)
-    # itineraries = []
-    # for ids in itinerary_ids:
-    #     item = Itinerary.query.get(ids)
-    #     itineraries.append(item)
-    # return itineraries
-
 
 def get_itinerary_by_id(itinerary_id):
     """Look up itinerary by id."""
@@ -152,6 +141,7 @@ def jsonify_all_itinerary_data(itin_id):
                  'notes': notes
                  }
 
+
 """ Functions to work with date data""" 
 
 def create_dates_list(start_date, end_date):
@@ -162,7 +152,7 @@ def create_dates_list(start_date, end_date):
     for d in range(delta.days + 1):
         dates.append(start_date + timedelta(days = d))
     return dates
-
+ 
 
 class DateTimeEncoder(json.JSONEncoder):
     """Makes time and date objects jsonifiable."""
