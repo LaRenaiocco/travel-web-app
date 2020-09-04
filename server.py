@@ -1,7 +1,7 @@
 """ Server for Operation Adventure."""
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect, jsonify, make_response)
+                   redirect, jsonify, make_response, g)
 from jinja2 import StrictUndefined
 from model import connect_to_db
 import crud
@@ -14,7 +14,13 @@ from datetime import date, time
 app = Flask(__name__)
 app.secret_key = os.environ['FLASK_KEY']
 app.jinja_env.undefined = StrictUndefined
+JS_TESTING_MODE = False
 GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
+
+
+@app.before_request
+def add_tests():
+    g.jasmine_tests = JS_TESTING_MODE
 
 
 @app.route('/')
@@ -220,4 +226,8 @@ def add_new_activity():
 
 if __name__ == '__main__':
     connect_to_db(app)
+    import sys
+    if sys.argv[-1] == 'jstest':
+        JS_TESTING_MODE = True
+
     app.run(host='0.0.0.0', debug=True)

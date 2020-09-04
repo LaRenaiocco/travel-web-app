@@ -4,7 +4,7 @@ $.get('/users/itinerary/api', (data) => {
 
     const response = JSON.parse(data)
     const itinerary = response.itinerary
-    const activities = response.activities
+    let activities = response.activities
     const dates = response.dates
     const notes = response.notes
 
@@ -22,7 +22,25 @@ $.get('/users/itinerary/api', (data) => {
         $('#travel-dates').append(date)
         day = day + 1
     });
-
+    // Sorts activities by time(if one is included) for ordered 
+    // placement on itinerary
+    const untimedActivities = []
+    const timedActivities = []
+    activities.forEach(a => {
+        console.log(a.activity_time)
+        if (a.activity_time !== null) {
+            if (a.activity_day !== null) {
+                a.iso = new Date(`${a.activity_day}T${a.activity_time}`)
+            } else {
+            a.iso = new Date(`1970-01-01T${a.activity_time}`)}
+            timedActivities.push(a)
+            console.log(a.activity_time)
+        } else {
+            untimedActivities.push(a)
+        }
+    })
+    timedActivities.sort((a, b) => a.iso - b.iso)
+    activities = timedActivities.concat(untimedActivities)
     // Adds activities to the appropriate day or to the bottom of the list 
     // if no day specified.
     activities.forEach(a => {

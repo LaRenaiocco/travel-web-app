@@ -43,7 +43,7 @@ function initMap() {
       placeName.setAttribute('class', 'marker-name');
       placeName.textContent = name
       infoContent.appendChild(placeName);
-      infoContent.appendChild(document.createElement('br'));
+      // infoContent.appendChild(document.createElement('br'));
       
       const text = document.createElement('text');
       text.textContent = address

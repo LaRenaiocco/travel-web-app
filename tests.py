@@ -27,6 +27,7 @@ class FlaskTestsBasic(TestCase):
         self.assertIn(b"Need an account?", result.data)
 
 
+
 class CrudAndHelperTests(TestCase):
     """Tests for crud.py and helper.py"""
 
