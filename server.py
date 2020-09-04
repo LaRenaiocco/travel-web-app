@@ -42,7 +42,9 @@ def login_user():
         return redirect ('/')
     else:
         if argon2.verify(incoming_password, user.password):
-            session['USERNAME'] = user.email
+            session['EMAIL'] = user.email
+            session['NAME'] = user.fname 
+            session['ID'] = user.user_id
             return redirect (f'users/profile/{user.fname}')  
         else:
             flash('Incorrect Password. Please try again.')
@@ -83,7 +85,7 @@ def show_user_profile(fname):
 @app.route('/users/profile/api')
 def get_user_information():
 
-    user = helper.get_user_by_email(session['USERNAME'])
+    user = helper.get_user_by_email(session['EMAIL'])
     user_itins = helper.get_itineraries_by_user(user)
     return jsonify({'fname': user.fname, 'lname': user.lname, 'email': user.email, 
                     'itineraries': user_itins})  
@@ -94,9 +96,9 @@ def get_user_information():
 def update_user_phone():
     """Adds or removes a user phone number"""
 
-    email = session['USERNAME']
+    email = session['EMAIL']
     phone = request.form['phone']
-    print(f'\n\n{phone}, {type(phone)}\n\n')
+    # print(f'\n\n{phone}, {type(phone)}\n\n')
     helper.add_phone_to_user(email, phone)
     if phone == None:
         return jsonify('You have disabled text updates.')
@@ -109,7 +111,7 @@ def update_user_phone():
 def new_itinerary():
     """Creates a new itinerary for a user and returns data as JSON."""
 
-    user = helper.get_user_by_email(session["USERNAME"])
+    user = helper.get_user_by_email(session['EMAIL'])
     trip_name = request.form['trip_name']
     start_date = request.form['start_date']
     end_date = request.form['end_date']
@@ -124,7 +126,7 @@ def new_itinerary():
 def link_itinerary():
     """Links a user to an existing itienrary and returns data as JSON"""
 
-    user = helper.get_user_by_email(session["USERNAME"])
+    user = helper.get_user_by_email(session['EMAIL'])
     itinerary_id = request.form['id']
     itinerary = helper.get_itinerary_by_id(itinerary_id)
     crud.create_user_itinerary(user.user_id, itinerary_id)
@@ -161,9 +163,9 @@ def return_new_note():
 
     itinerary_id = session['TRIP']
     trip_name = helper.get_itinerary_name(itinerary_id)
-    email = session["USERNAME"]
-    user_id = helper.get_user_id(email)
-    author = helper.get_user_fname(email)
+    email = session['EMAIL']
+    user_id = session['ID']
+    author = session['NAME']
     comment = request.form['comment']
     date = request.form['date']
     if date == '':
@@ -196,8 +198,8 @@ def add_new_activity():
 
     itinerary_id = session['TRIP']
     trip_name = helper.get_itinerary_name(itinerary_id)
-    email = session['USERNAME']
-    author = helper.get_user_fname(email)
+    email = session['EMAIL']
+    author = session['NAME']
     activity_name = request.form['name']
     address = request.form['address']
     lat_lng = request.form['latlng']

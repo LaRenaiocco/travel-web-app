@@ -94,12 +94,6 @@ class CrudAndHelperTests(TestCase):
         self.assertIsNotNone(u.user_id)
 
 
-    def test_get_user_fname(self):
-        """Test get_user_fname function"""
-        
-        self.assertEqual(helper.get_user_fname('Alex@alex.com'), 'Alex')
-
-
     def test_get_user_id(self):
         """Test get_user_id function"""
 

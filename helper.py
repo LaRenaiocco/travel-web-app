@@ -19,20 +19,6 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 
-def get_user_fname(email):
-    """Return user's first name from email."""
-
-    user = get_user_by_email(email)
-    return user.fname
-
-
-def get_user_id(email):
-    """Return user id from email"""
-
-    user = get_user_by_email(email)
-    return user.user_id
-
-
 def get_itineraries_by_user(user):
     """Look up itineraries associated with a specified user."""
 

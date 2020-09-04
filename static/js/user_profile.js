@@ -6,6 +6,11 @@ $.get('/users/profile/api', (data) => {
   $('#user-email').text(data.email)
 
   const itineraries = data.itineraries
+  console.log(itineraries)
+  if (itineraries.length === 0) {
+    $('#no-itinerary').show();
+  };
+
   itineraries.forEach(i => {
     $('#user-itineraries').append(`<li><a href="/users/trips/${i.itinerary_id}">${i.trip_name}</a></li>`)
   })
@@ -31,6 +36,7 @@ $('#new-trip-form').on('submit', (evt) => {
   $.post('/users/trips/new-trip.json', formData, (response) => {
     $('ul').append(`<li><a href="/users/trips/${response['itinerary_id']}">${response['trip_name']}</a></li>`)
     $('#add-new-trip').hide();
+    $('#no-itinerary').hide();
   });
 });
 
@@ -47,6 +53,7 @@ $('#existing-trip-form').on('submit', (evt) => {
     $('ul').append(`<li><a href="/users/trips/${response['itinerary_id']}">${response['trip_name']}</a></li>`)
     document.getElementById("existing-trip-form").reset();
     $('#add-existing-trip').hide();
+    $('#no-itinerary').hide();
   });
 });
 

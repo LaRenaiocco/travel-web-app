@@ -27,14 +27,12 @@ $.get('/users/itinerary/api', (data) => {
     const untimedActivities = []
     const timedActivities = []
     activities.forEach(a => {
-        console.log(a.activity_time)
         if (a.activity_time !== null) {
             if (a.activity_day !== null) {
                 a.iso = new Date(`${a.activity_day}T${a.activity_time}`)
             } else {
             a.iso = new Date(`1970-01-01T${a.activity_time}`)}
             timedActivities.push(a)
-            console.log(a.activity_time)
         } else {
             untimedActivities.push(a)
         }

@@ -17,8 +17,9 @@
       </p>
     {% endfor %}
     <div class="navbar">
-      <a href="/users/profile/<fname>">My Profile</a>
-      <a href="/logout">Logout</a>
+      <a id="nav-profile" href="/users/profile/{{ session['NAME'] }}">My Profile</a>
+      
+      <a id="nav-logout" href="/logout">Logout</a>
     </div>
       {% block body %}{% endblock %}
         <script src="/static/js/navbar.js"></script>
