@@ -4,60 +4,132 @@
 
 
 {% block body %}
-<h1> User profile page</h1>
 <div>
-  <h3 id="user-name"></h3>
+  <h1 id="user-name"></h1>
 </div>
 <div>
   <p id="user-email"></p>
 </div>
-<div>
-  <h2>Itineraries</h2>
-  <div hidden id="no-itinerary">It looks like you don't have any adventures! Let's plan one.</div>
-  <ul id="user-itineraries">
-  </ul>
-</div>
-<div >
-  <button id="new-trip-btn">Add New Trip</button>
-</div>
-<div hidden id="add-new-trip">
-  <form id="new-trip-form" action="/users/trips/new-trip.json" method="POST">
-    <div>Where are you going for your next adventure?
-      <input id="city-input" type="text" name="city" placeholder="city, state or country"/>
-    </div>
-    <div>Departure Date:
-      <input id="depart-date" type="date" name="depart" />
-    </div>
-    <div>Return Date:
-      <input id="return-date" type="date" name="return" />
-    </div>
+<h4 id="itinerary-heading">Your Itineraries</h4>
+<div class="row">
+  <div class="col">
     <div>
-      <input type="submit" />
+      <div id="no-itinerary">It looks like you don't have any adventures! Let's plan one.</div>
+      <ul id="user-itineraries">
+      </ul>
     </div>
-  </form>
-</div>
-<div>
-  <button id="existing-trip-button">Join an existing trip!</button>
-</div>
-<div hidden id="add-existing-trip">
-  <form id="existing-trip-form" action="/users/trips/add-trip.json" method="POST">
-    <div>You should have received a trip id # from your travel mate.  Please enter it here.
-      <input id="existing-trip-id" type="text" name="id" />
-      <input type="submit" />
+  </div>
+  <div class="col" id="col-two">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" id="new-trip-btn"
+            data-toggle="modal" data-target="#new-trip-modal"  
+            data-toggle="tooltip" data-placement="top" 
+            title="Click to start planning your next adventure...">
+            Add  A New Trip
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="new-trip-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add a New Trip</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="new-trip-form" action="/users/trips/new-trip.json" method="POST">
+              <div>Where is your next adventure?
+                <input id="city-input" type="text" name="city" placeholder="city and state/country"/>
+              </div>
+              <div>Departure Date:</div>
+              <div>
+                <input id="depart-date" type="date" name="depart" />
+              </div>
+              <div>Return Date:</div>
+              <div>
+                <input id="return-date" type="date" name="return" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button id="new-trip-submit" type="button" class="btn btn-primary">Add Trip</button>
+          </div>
+        </div>
+      </div>
     </div>
-  </form>
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" 
+        data-toggle="modal" data-target="#existing-trip-modal"
+        data-toggle="tooltip" data-placement="top" 
+        title="Join a trip your friends are planning...">
+  Join An Adventure
+</button>
+<!-- Modal -->
+<div class="modal fade" id="existing-trip-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Join An Existing Trip</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="existing-trip-form" action="/users/trips/add-trip.json" method="POST">
+          <div>You should have received a trip id # from your travel mate.  Please enter it here.
+            <input id="existing-trip-id" type="text" name="id" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="existing-submit">Add Trip</button>
+      </div>
+    </div>
+  </div>
 </div>
-<div>
-  Want to stay up to date with your trip?  When your travel mates add to the trip you can get a text!
-  <button id="trip-text-btn">Get text updates</button>
-  <button id="disable-trip-text">Disable text updates</button>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" 
+data-toggle="modal" data-target="#text-modal"
+data-toggle="tooltip" data-placement="top" 
+title="Sign up for text updates on your trips...">
+  Get Text Updates
+</button>
+<!-- Modal -->
+<div class="modal fade" id="text-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Text Updates</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Want to know when your friends add activities and notes to your trips?
+        Enter your phone number for text udpates.
+        <form id="phone-form">
+          <input id="phone-num" type="number" name="phone-num" placeholder="phone number" 
+                 minlength="10" maxlength="10" />
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="phone-submit">Submit</button>
+      </div>
+    </div>
+  </div>
 </div>
-<div hidden id="get-trip-update">
-  <form id="phone-form">
-    <label for="phone-num">Enter your phone number for updates</label>
-    <input id="phone-num" type="number" name="phone-num" placeholder="phone number" minlength="10" maxlength="10" />
-    <input type="submit" />
-  </form>
+    <div>
+      <button class="btn btn-primary" id="disable-trip-text">Disable Text Updates</button>
+    </div>
+  </div>
+</div>
+<!-- Disable Text Modal Popup -->
+<div class="modal fade bd-example-modal-sm" id="text-disable" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content" id="text-disable-text">
+    </div>
+  </div>
 </div>
 
 {% endblock %}

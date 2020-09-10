@@ -1,0 +1,63 @@
+/* font-family: 'Major Mono Display', monospace;
+font-family: 'Montserrat', sans-serif; */
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #192229;
+    color: #f6ddcb;
+    text-align: center;
+    height: 100%
+}
+
+.bkimg{
+    background-image: url(/static/homepage.jpg);
+    height: 100%;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form-control {
+    border-color: #f6ddcb;
+    background: transparent;
+}
+
+#adventure-title {
+    font-family: 'Major Mono Display', monospace;
+    font-weight: bolder;
+    font-size: xxx-large;
+}
+
+#login-info {
+    padding-top: 400px;
+}
+
+#submit-btn {
+    background: transparent;
+    color: #f6ddcb;
+    margin-top: 5px;
+}
+
+#new-email, 
+#new-password,
+#new-fname, 
+#new-lname {
+    background-color: #8ae5d6;
+    margin-bottom: 5px;
+}
+
+#alert-modal-text {
+    background-color: #f6ddcb;
+}
+
+#alert-modal-header {
+    background-color: #f6ddcb;
+    height: 40px;
+}
+
+#alert-close {
+    padding-top: 0px;
+    padding-right: 4px;
+    padding-bottom: 0px;
+}

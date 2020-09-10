@@ -1,22 +1,26 @@
 "use strict"
+const latLngObject = {lat: 0, lng: 0}
+
+//  Get itinerary and activity information from database
+
+
 // create map based on itinerary and activity information in DB.
 function initMap() {
-
-  const latLngObject = {lat: 0, lng: 0}
-
-  //  Get itinerary and activity information from database
-  $.get('/users/trips/api', (data) => {
-    const response = JSON.parse(data)
-
-    latLngObject['lat'] = response.itinerary.lat;
-    latLngObject['lng'] = response.itinerary.lng;
-
     // create map
+    $.get('/users/trips/api', (data) => {
+      const response = JSON.parse(data)
+    
+      latLngObject['lat'] = response.itinerary.lat;
+      latLngObject['lng'] = response.itinerary.lng;
+
     const basicMap = new google.maps.Map(
-        document.querySelector('#map'),
+        document.querySelector('#itin-map'),
         {
           center: latLngObject,
-          zoom: 7
+          zoom: 7,
+          mapTypeControl: false,
+          fullscreenControl: false,
+          styles: myMapStyle
         }
       );
     // Check out the section on "Destructuring objects" here:
@@ -57,14 +61,15 @@ function initMap() {
           activityInfo.open(basicMap, activityMarker);
           for (const a of document.getElementsByClassName('activity-name')) {
             if (a.textContent.includes(name)) {
-              a.style.color = 'blue'
+              // a.style.color = '#339989'
+              a.setAttribute("style", "color: #8ae5d6; background-color: #339989; font-size: x-large")
             }
           }
       })
       activityInfo.addListener('closeclick', function() {
         for (const a of document.getElementsByClassName('activity-name')) {
           if (a.textContent.includes(name)) {
-            a.style.color = 'black'
+            a.setAttribute("style", "color: #2d383e; background-color: #f6ddcb; font-size: large")
           }
         }
       })

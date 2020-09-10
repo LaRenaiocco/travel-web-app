@@ -2,10 +2,19 @@
 <html>
 <head>
   <title>Adventure Awaits</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+        crossorigin="anonymous"/>
+  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Montserrat&display=swap" 
+        rel="stylesheet">
+  <link rel="icon" href="/static/favicon.png">
+  <link rel="stylesheet" href="/static/css/my-styles.css"/>
+  <link rel="stylesheet" href="/static/css/homepage.css"/> 
   <script src="https://code.jquery.com/jquery-3.5.1.js"
           integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-          crossorigin="anonymous">
-  </script>
+          crossorigin="anonymous"></script>
 </head>
 <body>
   {% for msg in get_flashed_messages() %}
@@ -13,49 +22,88 @@
       {{ msg }}
     </p>
   {% endfor %}
-<div>
-  <h1>Adventure Awaits</h1>
-  <h3>Grab your friends and plan the perfect adventure...</h3>
-</div>
-<div id="login-info">
-  <div id="login">
-    <h4>Login here</h4>
-    <form id="login-form" action="/login" method="POST">
-      <div>Email:
-        <input type="text" name="email" required="required" />
-      </div>
-      <div>Password:
-        <input type="password" name="password" required="required" />
-      </div>
-      <div>
-        <input type="submit" value="Log In" />
-      </div>
-    </form>
+<!-- <div id="title"> -->
+<div class="bkimg">
+  <div class="title">
+    <div id="adventure-title">Adventure Awaits</div>
+    <div>Grab your friends and plan the perfect adventure...</div>
   </div>
-  <div id="create-user-link">
-    Need an account? Click here...
-  </div>
+  <div id="login-info">
+    <div id="login">
+      <form id="login-form" action="/login" method="POST">
+        <div class="row">
+          <div class="col"></div>
+          <div class="col">
+            <input class="form-control" type="text" name="email" required="required" placeholder="Email" />
+          </div>
+          <div class="col">
+            <input class="form-control" type="password" name="password" required="required" placeholder="Password" />
+          </div>
+          <div class="col"></div>
+        </div>
+        <div>
+          <input id="submit-btn" type="submit" value="Log In" />
+        </div>
+      </form>
+    </div>
 </div>
-<div hidden id="new-user">
-  <form id="new-user-form" submit="/users/create-user.json" method="POST">
-  	<div>Email:
-      <input id="new-email" type="text" name="email">
-  	</div>
-    <div>Password:
-      <!-- Consider https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password -->
-      <input id="new-password" type="text" name="password">
-    </div>
-    <div>First Name:
-      <input id="new-fname" type="text" name="fname">
-    </div>
-    <div>Last Name:
-      <input id="new-lname" type="test" name="lname">
-    </div>
-    <div>
-      <input type="submit" value="Create Account">
-    </div>
-  </form>
-  <button id="back-to-login">Return to Login</button>
+<!-- Button trigger modal -->
+<div data-toggle="modal" data-target="#new-user-modal">
+  Need an account? Click here to sign up...
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="new-user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create an Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="new-user-form" submit="/users/create-user.json" method="POST">
+          <div>
+            <input id="new-email" type="text" name="email" placeholder="Email">
+          </div>
+          <div>
+            <input id="new-password" type="text" name="password" placeholder="Password">
+          </div>
+          <div>
+            <input id="new-fname" type="text" name="fname" placeholder="First Name">
+          </div>
+          <div>
+            <input id="new-lname" type="test" name="lname" placeholder="Last Name">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"id="new-user-submit">Create My Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Alert modal -->
+<div class="modal fade bd-example-modal-sm" id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-header" id="alert-modal-header">
+      <button type="button" class="close" id="alert-close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-content" id="alert-modal-text">
+
+    </div>
+  </div>
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+        crossorigin="anonymous"></script>
 <script src="/static/js/homepage.js"></script>

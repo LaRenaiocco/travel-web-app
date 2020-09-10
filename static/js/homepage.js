@@ -1,19 +1,7 @@
 "use strict"
-//  switch home screen to create new user information
-$('#create-user-link').on('click', () => {
-    $('#new-user').show()
-    $('#login-info').hide()
-});
-
-//  switch home screen to login information
-$('#back-to-login').on('click', () => {
-    $('#new-user').hide()
-    $('#login-info').show()
-});
 
 // submit new user form to the database and return to login page on success
-$('#new-user-form').on('submit', (evt) => {
-    evt.preventDefault();
+$('#new-user-submit').on('click', () => {
 
     const formData = {
         email: $('#new-email').val(),
@@ -22,11 +10,11 @@ $('#new-user-form').on('submit', (evt) => {
         lname: $('#new-lname').val()
         };
 
-    document.getElementById("new-user-form").reset();
-
     $.post('/users/create-user.json', formData, (response) => {
-        alert(response)
-    $('#new-user').hide()
-    $('#login-info').show()
+        // alert(response)
+    $('#alert-modal-text').text(response);
+    $('#alert-modal').modal('toggle');
+    $('#new-user-modal').modal('toggle');
+
     });
 });

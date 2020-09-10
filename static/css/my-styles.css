@@ -1,0 +1,197 @@
+/* font-family: 'Major Mono Display', monospace;
+font-family: 'Montserrat', sans-serif; */
+
+body {
+    /* color: red; */
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f6ddcb;
+    color: #2d3832;
+ }
+
+ nav {
+   background-color: #2d383e;
+    color: #f6ddcb;
+ }
+
+ h1, h2, h3, h4, h5, h6 {
+   font-family: 'Major Mono Display', monospace;
+}
+
+ li {
+   margin-left: 20px;
+   margin-bottom: 5px;
+   font-size: 25px;
+   font-weight: bold;
+}
+
+a {
+   color: #339989;
+}
+
+input,
+textarea {
+   background-color: #f6ddcb;
+}
+
+.col {
+   margin-left: 15px;
+}
+
+#app-title {
+   font-family: 'Major Mono Display', monospace;
+   font-size: xx-large;
+   margin-bottom: 0px;
+ }
+
+ .topnav-right {
+   float: right;
+   font-size: 15px;
+   color: #E2693d;
+
+ }
+
+ #user-name, #user-email{
+    text-align: center;
+ }
+
+.btn.btn-primary {
+    background-color: #339989;
+    color: #2d3832;
+    font-family: 'Major Mono Display', monospace;
+    border-color: #2d3832;
+    width: 330px;
+    height: 47px;
+    margin-bottom: 15px;
+
+ }
+
+ .modal-content, .modal-header{
+   background-color: #8ae5d6;
+   color: #2d383e
+ }
+
+ /* .modal-title {
+   color: #2d383e;
+ } */
+
+ #new-trip-submit,
+ #existing-submit,
+ #phone-submit {
+    background-color: #E2693d;
+    width: fit-content;
+ }
+
+
+#text-disable-text {
+   background-color: #339989;
+   font-family: 'Major Mono Display', monospace;
+   text-align: center;
+}
+
+
+.itin-map #itin-map {
+  /* width: 500px; */
+  height: 400px;
+  /* margin-bottom: 15px; */
+}
+
+.map #map {
+/* width: 700px; */
+height: 400px;
+}
+
+.itin-map, 
+.map {
+  background-color: #2d383e;
+  padding: 5px;
+}
+
+
+#trip-name, 
+#activity-header{ 
+   font-family: 'Major Mono Display', monospace;
+   font-size: xx-large;
+   text-align: center;
+}
+
+#travel-dates{
+   font-family: 'Major Mono Display', monospace;
+   font-size: large;
+   padding-top: 20px;
+}
+
+.activity-time{
+   font-size: medium;
+   padding-left: 30px;
+}
+
+.activity-name{
+   font-family: 'Montserrat', sans-serif;
+   padding-left: 60px;
+}
+
+.activity-address{
+   font-family: 'Montserrat', sans-serif;
+   font-size: x-small;
+   padding-left: 60px;
+}
+
+/* #itin-title{
+   font-size: x-large;
+   text-align: center;
+} */
+
+.itinerary-note, 
+.activity-note{
+   font-family: 'Montserrat', sans-serif;
+    font-size: small;
+    padding-top: 10px;
+    padding-left: 60px;
+}
+
+.days{
+   margin-top: 10px;
+   margin-bottom: 10px;
+   /* color: #e0efef;
+   color: #c0e8e8 */
+}
+
+#misc-activities{
+   font-family: 'Major Mono Display', monospace;
+   font-size: large;
+}
+
+#notes,
+#friends-list {
+   font-family: 'Major Mono Display', monospace;
+   font-size: large;
+}
+
+#comment, 
+#comment-date{
+   background-color: #f6ddcb;
+   margin-bottom: 15px;
+}
+ #travel-mates{
+    padding-bottom: 10px
+ }
+
+ .pac-target-input{
+   font-size: large;
+ }
+
+ span.optional{
+    font-size: x-small;
+ }
+
+ #span-trip{
+    color: #E2693d;
+ }
+
+.activity-form{
+    margin-bottom: 15px;
+ }
+ #add-activity-btn{
+    margin-top: 15px;
+ }
+

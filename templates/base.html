@@ -4,11 +4,20 @@
     <title>
       {% block title %}{% endblock %}
     </title>
-      <script src="https://code.jquery.com/jquery-3.5.1.js"
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+        crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Montserrat&display=swap" 
+          rel="stylesheet">
+    <link rel="icon" href="/static/favicon.png">
+    <link rel="stylesheet" href="/static/css/my-styles.css"/>    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
               integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
               crossorigin="anonymous">
-      </script>
-      {% block head %}{% endblock %}
+    </script>
+    {% block head %}{% endblock %}
   </head>
   <body>
     {% for msg in get_flashed_messages() %}
@@ -16,21 +25,35 @@
         {{ msg }}
       </p>
     {% endfor %}
-    <div class="navbar">
-      <a id="nav-profile" href="/users/profile/{{ session['NAME'] }}">My Profile</a>
-      
-      <a id="nav-logout" href="/logout">Logout</a>
-    </div>
-      {% block body %}{% endblock %}
-        <script src="/static/js/navbar.js"></script>
-      {% block after_body %}{% endblock %}
-      {% if g.jasmine_tests %}
-        <link rel="stylesheet" 
-              href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.6.0/jasmine.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.6.0/jasmine.min.js"></script>        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.6.0/jasmine-html.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.6.0/boot.min.js"></script>
-        <script src="/static/js/jasmine-spec.js"></script>
-      {% endif %}
+    <nav class="navbar sticky-top">
+      <h1 class="navbar-brand" id="app-title">
+        Adventure Awaits
+      </h1>
+      <ul class="nav justify-content-end">
+        <li >
+          <a class="topnav-right" id="nav-profile" href="/users/profile/{{ session['NAME'] }}">My Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="topnav-right" id="nav-logout" href="/logout">Logout</a>
+        </li>
+    </nav>
+    {% block body %}{% endblock %}
+      <script src="/static/js/navbar.js"></script>
+    {% if g.jasmine_tests %}
+      <link rel="stylesheet" 
+            href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.6.0/jasmine.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.6.0/jasmine.min.js"></script>        
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.6.0/jasmine-html.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.6.0/boot.min.js"></script>
+      <script src="/static/js/jasmine-spec.js"></script>
+    {% endif %}
+    {% block after_body %}{% endblock %} 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+            crossorigin="anonymous"></script>  
+
   </body>
 </html>

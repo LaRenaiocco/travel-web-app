@@ -2,46 +2,61 @@
 {% block title %}My Trip{% endblock %}
 
 {% block head %}
+<script src="/static/js/map_styles.js"></script>
 <script src="/static/js/my_trip_map.js"></script>
 <script
   async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCAzkJ73QJXmoq8jsCvLAe0RRqcNG5vOQ&callback=initMap&libraries=places&v=weekly">
 </script>
-<style>
-  .map #map {
-  width: 500px;
-  height: 500px;
-}
-</style>
 {% endblock %}
 
 {% block body %}
 <div id="trip-name"></div>
 <div hidden id="itinerary-id"></div>
-<div id="itinerary">
-  Itinerary
-  <div id="travel-dates"></div>
-  <div id="misc-activities"></div>
+<div class="row">
+  <div class="col">
+    <div id="itinerary">
+      <!-- <div id="itin-title">
+        Itinerary
+      </div> -->
+      <div id="travel-dates"></div>
+      <div id="misc-activities">More Activities:</div>
+    </div>
+  </div>
+  <div class="col" id="col-two">
+    <br />
+    <div class="itin-map">
+      <div id="itin-map"></div>
+    </div>
+    <div id="add-actitities">
+      <button class="btn btn-primary" id="add-activity-btn" action="/users/trips/activities">Add Activities</button>
+    </div>
+    <div id="notes">Notes:</div>
+    <div id="add-new-note">
+      <form id="new-note-form" action="/users/trips/new-note.json"  method="POST">
+        <textarea id="comment" name="comment" placeholder="Leave a note for your friends..." rows="4" cols="28"></textarea>
+        <br/>
+        <input id="comment-date" type="date" name="date" />
+        <br />
+        <input class="btn btn-primary" type="submit" value="Add Note" />
+      </form>
+    </div>
+    <div id="friends-list">Adventure Friends:</div>
+    <div id="travel-mates">
+    </div>
+    <button class="btn btn-primary" id="add-mate-btn">Add More Friends!</button>
+    <div>
+      <button onclick="window.print()" class="btn btn-primary" id="pretty-print">Print This Itinerary</button>
+    </div>
+  </div>
 </div>
-<div id="add-actitities">
-  <button id="add-activity-btn" action="/users/trips/activities">Add activities</button>
-</div>
-<div id="notes">Notes</div>
-<div id="add-new-note">
-  <form id="new-note-form" action="/users/trips/new-note.json"  method="POST">
-    <textarea id="comment" name="comment" placeholder="Leave a note for your mates..." rows="4" columns="20"></textarea>
-    <input id="comment-date" type="date" name="date" />
-    <input type="submit" />
-  </form>
-</div>
-<div id="travel-mates">
-  <button id="add-mate-btn">Add a Friend!</button>
-</div>
-<div>
-  <button onclick="window.print()" id="pretty-print">Print this itinerary</button>
-</div>
-<div class="map">
-  <div id="map"></div>
+<div class="modal fade" id="add-friend-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body" id="add-friend-modal-text">
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 

@@ -7,6 +7,8 @@ $.get('/users/itinerary/api', (data) => {
     let activities = response.activities
     const dates = response.dates
     const notes = response.notes
+    const friends = response.friends
+    console.log(friends)
 
     $('#trip-name').html(`${itinerary.trip_name}`);
     $('#itinerary-id').html(`${itinerary.itinerary_id}`);
@@ -17,8 +19,9 @@ $.get('/users/itinerary/api', (data) => {
     dates.forEach(d => {
 
         const date = document.createElement('div')
-        date.textContent = `Day ${day}: ${d}`
+        date.textContent = `day ${day}: ${d}`
         date.setAttribute('id', d)
+        date.setAttribute('class', 'days')
         $('#travel-dates').append(date)
         day = day + 1
     });
@@ -102,6 +105,13 @@ $.get('/users/itinerary/api', (data) => {
             $(`#${n.day}`).append(note)
         }
     })
+    // Displays list of friends sharing this trip.
+    friends.forEach(f => {
+        const friend = document.createElement('span')
+        friend.textContent = `${f[0]}   `
+        $('#travel-mates').append(friend)
+    })
+
     // Sets note date picker to days of trip.
     const min = itinerary.start_date;
     const max = itinerary.end_date;
@@ -148,30 +158,39 @@ $('#new-note-form').on('submit', (evt) => {
 //  Alerts user of Itinerary ID to link another user to the same itinerary.
 $('#add-mate-btn').on('click', () => {
     const itinAlert = $('#itinerary-id').text()
-    alert(`Please give your mate this id number to link your trips: ${itinAlert}`)
+    $('#add-friend-modal-text').text(`Please give your mate this id number to link your trips: ${itinAlert}`)
+    $('#add-friend-modal').modal('toggle')
 })
 
 //  redirects to the activity search page.
 $('#add-activity-btn').on('click', () => {
     document.location.href = '/users/trips/activities'
 })
-
+//  Changes CSS for pretty printing
 window.onbeforeprint = function() {
-    $('#pretty-print').hide()
-    $('.itinerary-note').hide()
-    $('#notes').hide()
-    $('#add-activity-btn').hide()
-    $('#add-new-note').hide()
-    $('#travel-mates').hide()
-    $('.map').hide()
+    $('#trip-name').css('text-align', 'left')
+    // $('#itin-title').css('text-align', 'left')
+    // $('#pretty-print').hide()
+    // $('.itinerary-note').hide()
+    // $('#notes').hide()
+    // $('#add-activity-btn').hide()
+    // $('#add-new-note').hide()
+    // $('#travel-mates').hide()
+    // $('#add-mate-btn').hide()
+    // $('.itin-map').hide()
+    $('#col-two').hide()
 }
 
 window.onafterprint = function() {
-    $('#pretty-print').show()
-    $('.itinerary-note').show()
-    $('#notes').show()
-    $('#add-activity-btn').show()
-    $('#add-new-note').show()
-    $('#travel-mates').show()
-    $('.map').show()
+    $('#trip-name').css('text-align', 'center')
+    // $('#itin-title').css('text-align', 'center')
+    // $('#pretty-print').show()
+    // $('.itinerary-note').show()
+    // $('#notes').show()
+    // $('#add-activity-btn').show()
+    // $('#add-new-note').show()
+    // $('#travel-mates').show()
+    // $('#add-mate-btn').show()
+    // $('.itin-map').show()
+    $('#col-two').show()
 }

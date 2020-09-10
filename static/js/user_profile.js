@@ -7,8 +7,8 @@ $.get('/users/profile/api', (data) => {
 
   const itineraries = data.itineraries
   console.log(itineraries)
-  if (itineraries.length === 0) {
-    $('#no-itinerary').show();
+  if (itineraries.length !== 0) {
+    $('#no-itinerary').hide();
   };
 
   itineraries.forEach(i => {
@@ -16,14 +16,9 @@ $.get('/users/profile/api', (data) => {
   })
 })
 
-// Shows new trip form
-$('#new-trip-btn').on('click', () => {
-  $('#add-new-trip').show();
-})
 
 // submits new trip information to be added to DB and adds to html.
-$('#new-trip-form').on('submit', (evt) => {
-  evt.preventDefault();
+$('#new-trip-submit').on('click', () => {
     
   const formData = {
     trip_name: $('#city-input').val(),
@@ -31,43 +26,30 @@ $('#new-trip-form').on('submit', (evt) => {
     end_date: $('#return-date').val()
   };
 
-  document.getElementById("new-trip-form").reset();
-
   $.post('/users/trips/new-trip.json', formData, (response) => {
-    $('ul').append(`<li><a href="/users/trips/${response['itinerary_id']}">${response['trip_name']}</a></li>`)
-    $('#add-new-trip').hide();
+    $('#user-itineraries').append(`<li><a href="/users/trips/${response['itinerary_id']}">${response['trip_name']}</a></li>`);
+    $('#new-trip-modal').modal('toggle');
+    // $('#new-trip-form').reset(); // Not working with Modal...
     $('#no-itinerary').hide();
   });
 });
 
-// shows add existing trip form
-$('#existing-trip-button').on('click', () => {
-  $('#add-existing-trip').show();
-})
 
 // Creates a UserItinerary link in DB and adds itinerary to html.
-$('#existing-trip-form').on('submit', (evt) => {
-  evt.preventDefault();
+$('#existing-submit').on('click', () => {
 
   $.post('/users/trips/add-trip.json', {'id': $('#existing-trip-id').val()}, (response) => {
     $('ul').append(`<li><a href="/users/trips/${response['itinerary_id']}">${response['trip_name']}</a></li>`)
     document.getElementById("existing-trip-form").reset();
-    $('#add-existing-trip').hide();
+    $('#existing-trip-modal').modal('toggle');
     $('#no-itinerary').hide();
   });
 });
 
-// shows add phone number form
-$('#trip-text-btn').on('click', () => {
-  $('#get-trip-update').show();
-})
-
-$('#phone-form').on('submit', (evt) => {
-  evt.preventDefault();
+$('#phone-submit').on('click', () => {
 
   $.post('/users/phone-update/api', {'phone': $('#phone-num').val()}, (response) => {
-    document.getElementById("phone-form").reset();
-    $('#get-trip-update').hide();
+    $('#text-modal').modal('toggle');
     alert(response)
   })
 })
@@ -75,6 +57,7 @@ $('#phone-form').on('submit', (evt) => {
 // removes a phone number from the database
 $('#disable-trip-text').on('click', () => {
   $.post('/users/phone-update/api', {'phone': 'None'}, (response) => {
-    alert(response)
+    $('#text-disable-text').text(response);
+    $('#text-disable').modal('toggle');
   })  
 })

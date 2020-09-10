@@ -10,6 +10,11 @@ $.get('/users/trips/activities.json', (data) => {
 
     document.getElementById("activity-date").min = min
     document.getElementById("activity-date").max = max
+
+    $('#back-to-itinerary').on('click', () => {
+        console.log(response.itinerary_id)
+        document.location.href = `/users/trips/${response.itinerary_id}`
+    })
 })
 
 // Submit new activity to DB and return alert that activity is added.
@@ -34,8 +39,8 @@ $('#new-activity-form').on('submit', (evt) => {
 
 
     $.post('/users/trips/new-activity/api', formData, (response) => {
-
-        alert(response)
+        $('#activity-modal-text').text(response);
+        $('#activity-modal').modal('toggle');
     })
 });
 

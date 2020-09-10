@@ -27,7 +27,6 @@ def get_itineraries_by_user(user):
     for itin in itins:
         itin_dict = {'itinerary_id': itin[0], 'trip_name': itin[1]}
         itins_list.append(itin_dict)
-
     return itins_list
 
 
@@ -104,6 +103,13 @@ def list_notes_by_itinerary(itin_id):
         json_notes.append(n_dict)
     return json_notes
 
+def list_users_for_itinerary(itin_id, user_id):
+    """Return a list of all users associated with an itinerary except
+    the logged in user"""
+
+    return db.session.query(User.fname).join(UserItinerary).filter(
+        UserItinerary.itinerary_id == itin_id, User.user_id != user_id).all()            
+
 def json_itinerary_activities(itin_id):
     """ return itinerary and associated activities."""
 
@@ -112,7 +118,7 @@ def json_itinerary_activities(itin_id):
     return {'itinerary': itinerary, 'activities': activities}
 
 
-def jsonify_all_itinerary_data(itin_id):
+def jsonify_all_itinerary_data(itin_id, user_id):
     """Return all data for an individual itinerary in jsonable format."""
 
     itinerary = serialize_itinerary_by_id(itin_id)
@@ -121,10 +127,12 @@ def jsonify_all_itinerary_data(itin_id):
     end_date = itinerary['end_date']
     dates = create_dates_list(start_date, end_date)
     notes = list_notes_by_itinerary(itin_id)
+    friends = list_users_for_itinerary(itin_id, user_id)
     return {'itinerary': itinerary, 
                  'activities': activities,
                  'dates': dates,
-                 'notes': notes
+                 'notes': notes,
+                 'friends': friends
                  }
 
 

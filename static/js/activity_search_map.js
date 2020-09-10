@@ -1,20 +1,25 @@
+"use strict"
+
+const latLngObject = {lat: 0, lng: 0}
+//  get latitude and longitude from database to build map
+
 
 
 //  Build activity search map
 function initMap() {
 
-  const latLngObject = {lat: 0, lng: 0}
-  //  get latitude and longitude from database to build map
   $.get('/users/trips/activities.json', (data) => {
     const response = JSON.parse(data)
-
+  
     latLngObject['lat'] = response.lat;
     latLngObject['lng'] = response.lng;
 
     const map = new google.maps.Map(document.getElementById("map"), {
       center: latLngObject,
       zoom: 8,
-      mapTypeControl: false
+      mapTypeControl: false,
+      fullscreenControl: false,
+      styles: myMapStyle
     });
     //  Search bar for map
     const input = document.getElementById("pac-input");

@@ -100,8 +100,8 @@ def update_user_phone():
     phone = request.form['phone']
     # print(f'\n\n{phone}, {type(phone)}\n\n')
     helper.add_phone_to_user(email, phone)
-    if phone == None:
-        return jsonify('You have disabled text updates.')
+    if phone == 'None':
+        return jsonify('Texts disabled.')
     else:
         return jsonify('You are signed up for trip updates by text!')
 
@@ -153,7 +153,7 @@ def return_json_for_maps():
 def return_json_for_itinerary():
     """Return json to JS for my_trip page."""
 
-    json_data = helper.jsonify_all_itinerary_data(session['TRIP'])
+    json_data = helper.jsonify_all_itinerary_data(session['TRIP'], session['ID'])
     return json.dumps(json_data, cls=helper.DateTimeEncoder)
 
 
