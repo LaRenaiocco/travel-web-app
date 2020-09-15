@@ -39,7 +39,7 @@ $('#new-trip-submit').on('click', () => {
 $('#existing-submit').on('click', () => {
 
   $.post('/users/trips/add-trip.json', {'id': $('#existing-trip-id').val()}, (response) => {
-    $('ul').append(`<li><a href="/users/trips/${response['itinerary_id']}">${response['trip_name']}</a></li>`)
+    $('#user-itineraries').append(`<li><a href="/users/trips/${response['itinerary_id']}">${response['trip_name']}</a></li>`)
     document.getElementById("existing-trip-form").reset();
     $('#existing-trip-modal').modal('toggle');
     $('#no-itinerary').hide();

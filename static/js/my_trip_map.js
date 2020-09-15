@@ -17,7 +17,7 @@ function initMap() {
         document.querySelector('#itin-map'),
         {
           center: latLngObject,
-          zoom: 7,
+          zoom: 12,
           mapTypeControl: false,
           fullscreenControl: false,
           styles: myMapStyle

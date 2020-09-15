@@ -158,7 +158,7 @@ $('#new-note-form').on('submit', (evt) => {
 //  Alerts user of Itinerary ID to link another user to the same itinerary.
 $('#add-mate-btn').on('click', () => {
     const itinAlert = $('#itinerary-id').text()
-    $('#add-friend-modal-text').text(`Please give your mate this id number to link your trips: ${itinAlert}`)
+    $('#add-friend-modal-text').text(`Please give your travel mate the following id number to link your trips: ${itinAlert}. They will enter this unique id number in their profile to join this trip.`)
     $('#add-friend-modal').modal('toggle')
 })
 
@@ -169,28 +169,10 @@ $('#add-activity-btn').on('click', () => {
 //  Changes CSS for pretty printing
 window.onbeforeprint = function() {
     $('#trip-name').css('text-align', 'left')
-    // $('#itin-title').css('text-align', 'left')
-    // $('#pretty-print').hide()
-    // $('.itinerary-note').hide()
-    // $('#notes').hide()
-    // $('#add-activity-btn').hide()
-    // $('#add-new-note').hide()
-    // $('#travel-mates').hide()
-    // $('#add-mate-btn').hide()
-    // $('.itin-map').hide()
     $('#col-two').hide()
 }
 
 window.onafterprint = function() {
     $('#trip-name').css('text-align', 'center')
-    // $('#itin-title').css('text-align', 'center')
-    // $('#pretty-print').show()
-    // $('.itinerary-note').show()
-    // $('#notes').show()
-    // $('#add-activity-btn').show()
-    // $('#add-new-note').show()
-    // $('#travel-mates').show()
-    // $('#add-mate-btn').show()
-    // $('.itin-map').show()
     $('#col-two').show()
 }

@@ -1,8 +1,8 @@
 /* font-family: 'Major Mono Display', monospace;
 font-family: 'Montserrat', sans-serif; */
+/* colors: #f699cb #2d3832 #339989 #8ae5d6 #E2693d */
 
 body {
-    /* color: red; */
     font-family: 'Montserrat', sans-serif;
     background-color: #f6ddcb;
     color: #2d3832;
@@ -70,10 +70,6 @@ textarea {
    color: #2d383e
  }
 
- /* .modal-title {
-   color: #2d383e;
- } */
-
  #new-trip-submit,
  #existing-submit,
  #phone-submit {
@@ -90,9 +86,7 @@ textarea {
 
 
 .itin-map #itin-map {
-  /* width: 500px; */
   height: 400px;
-  /* margin-bottom: 15px; */
 }
 
 .map #map {
@@ -136,11 +130,6 @@ height: 400px;
    padding-left: 60px;
 }
 
-/* #itin-title{
-   font-size: x-large;
-   text-align: center;
-} */
-
 .itinerary-note, 
 .activity-note{
    font-family: 'Montserrat', sans-serif;
@@ -152,8 +141,6 @@ height: 400px;
 .days{
    margin-top: 10px;
    margin-bottom: 10px;
-   /* color: #e0efef;
-   color: #c0e8e8 */
 }
 
 #misc-activities{
