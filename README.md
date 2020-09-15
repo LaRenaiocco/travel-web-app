@@ -1,4 +1,4 @@
-# <img src="https://github.com/LaRenaiocco/travel-web-app/static/adventure_awaits.png" width="75%" alt="Adventure Awaits">
+# <img src="https://github.com/LaRenaiocco/travel-web-app/blob/master/static/adventure_awaits.png" width="75%" alt="Adventure Awaits">
 Adventure Awaits was inspired by my love of travel with my friends and that fact that I am always the one keeping us all organized leading up to a trip and finding all the best activities and deals.  Adventure Awaits allows users to create an account, set up unlimited itineraries for future trips, and link those itineraries with their travel mates so that a user and friends can collaboratively plan the perfect adventure!
 
 ## About the Developer
