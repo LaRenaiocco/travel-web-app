@@ -1,8 +1,8 @@
-# <img src="https://github.com/mearajennifer/travel-web-app/static/adventure_awaits.png" width="75%" alt="JobTracker">
+# <img src="https://github.com/LaRenaiocco/travel-web-app/static/adventure_awaits.png" width="75%" alt="Adventure Awaits">
 Adventure Awaits was inspired by my love of travel with my friends and that fact that I am always the one keeping us all organized leading up to a trip and finding all the best activities and deals.  Adventure Awaits allows users to create an account, set up unlimited itineraries for future trips, and link those itineraries with their travel mates so that a user and friends can collaboratively plan the perfect adventure!
 
-## About Me
-Before attending Hackbright Academy, LaRena spent most of her adult life clowning around in the circus (yes, you read that right).  She studied Theatre in college and then honed her circus and clowning skills at the San Francisco Clown Conservatory.  LaRena spent 8 years touring full time in the US, Mexico and Japan with Ringling Bros. and Barnum & Bailey as well as Kinoshita Circus. Despite her passion for travel, being on the road 52 weeks a year can wear out even the most seasoned traveller.  Looking to live in one place and ready for the next step in her career, coupled with massive amounts of time in the current pandemic, LaRena discovered a love for coding and has enjoyed putting her previously unused math and logic skills to good use. 
+## About the Developer
+Before attending Hackbright Academy, LaRena spent most of her adult life clowning around in the circus (yes, you read that right).  She studied Theatre in college and then honed her circus and clowning skills at the San Francisco Clown Conservatory.  LaRena spent 8 years touring full time in the US, Mexico and Japan with Ringling Bros. and Barnum & Bailey as well as Kinoshita Circus. Despite her passion for travel, being on the road 52 weeks a year can wear out even the most seasoned traveller.  Looking to live in one place and ready for the next step in her career, coupled with massive amounts of time in the current pandemic, LaRena discovered a love for software development and has enjoyed putting her previously unused math and logic skills to good use and learning to code
 
 
 ## Deployment
@@ -43,8 +43,8 @@ After a user has created an account and logged in they will be redirected to the
 
 ![alt text](https://media.giphy.com/media/YMXyE98g8UaJ3roZfy/giphy.gif "Adventure Awaits profile page")
 
-#### Itinrary Pages
-Users are linked to their fellow travellers through the itinerary page.  All users with the access code can join a trip together and here is the space to collaborate on the perfect adventure.  Users can see their itinerary with all activities broken down by day and time for a trip.  Undated activities will appear at the bottom of the itinerary.  All activities will also appear on the trip map, and clicking a marker will quickly show the user what day their activity is planned for.  This space also allows users to leave notes and ideas for eachother regarding the trip, see which friends are linked to this trip as well as print their itinerary.
+#### Itinerary Pages
+Users are linked to their fellow travellers through the itinerary page.  All users with the access code can join a trip together and thus is the space to collaborate on the perfect adventure.  Users can see their itinerary with all activities broken down by day and time for a trip.  Undated activities will appear at the bottom of the itinerary.  All activities will also appear on the trip map, and clicking a marker will quickly show the user what day their activity is planned for.  This space also allows users to leave notes and ideas for each other regarding the trip, see which friends are linked to this trip as well as print their itinerary.
 
 ![alt text](https://media.giphy.com/media/UokE1YPakB14XCYO0z/giphy.gif "Adventure Awaits itinerary page")
 
@@ -56,7 +56,7 @@ The activity search page is linked to the itinerary and features an autocomplete
 ## <a name="future"></a>The Future of Adventure Awaits
 There are lots of new features planned for additional sprints:
 * Archiving of past trips
-* Functionality to edit or delete activities from itineraries
+* Functionality to edit or delete activities and notes from itineraries
 * Adding a currency converter and IOU system so users can keep track of who paid for what on a trip.
 * Integrating a flight search and hotel API
 
@@ -119,7 +119,7 @@ Run the app:
 python3.6 server.py
 ```
 
-You can now navigate to 'localhost:5000/' to access JobTracker.
+You can now navigate to 'localhost:5000/' to access Adventure Awaits.
 
 ## <a name="license"></a>License
 The MIT License (MIT) Copyright (c) 2016 Agne Klimaite
