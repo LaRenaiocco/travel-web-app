@@ -61,13 +61,13 @@ def serialize_itinerary_by_id(itin_id):
 
     itinerary = get_itinerary_by_id(itin_id)
     return {'itinerary_id': itinerary.itinerary_id,
-                      'trip_name': itinerary.trip_name,
-                      'start_date': itinerary.start_date,
-                      'end_date': itinerary.end_date,
-                      'num_days': itinerary.num_days,
-                      'lat': itinerary.lat,
-                      'lng': itinerary.lng
-                      }
+            'trip_name': itinerary.trip_name,
+            'start_date': itinerary.start_date,
+            'end_date': itinerary.end_date,
+            'num_days': itinerary.num_days,
+            'lat': itinerary.lat,
+            'lng': itinerary.lng
+            }
 
 def list_activities_by_itinerary(itin_id):
     """serialize activities list to jsonify"""
@@ -129,11 +129,11 @@ def jsonify_all_itinerary_data(itin_id, user_id):
     notes = list_notes_by_itinerary(itin_id)
     friends = list_users_for_itinerary(itin_id, user_id)
     return {'itinerary': itinerary, 
-                 'activities': activities,
-                 'dates': dates,
-                 'notes': notes,
-                 'friends': friends
-                 }
+            'activities': activities,
+            'dates': dates,
+            'notes': notes,
+            'friends': friends
+            }
 
 
 """ Functions to work with date data""" 
@@ -146,7 +146,7 @@ def create_dates_list(start_date, end_date):
     for d in range(delta.days + 1):
         dates.append(start_date + timedelta(days = d))
     return dates
- 
+
 
 class DateTimeEncoder(json.JSONEncoder):
     """Makes time and date objects jsonifiable."""
@@ -181,15 +181,13 @@ def users_to_notify(itinerary_id, email):
 
     users = db.session.query(UserItinerary.user_id, User.phone, User.email).join(User).filter(UserItinerary.itinerary_id == itinerary_id).all()
     phone_list = []
+    #users returns a list of tuples. A tuple for each user matching query
     #user[1] = user phone, user[2]=user email
     for user in users:
         if user[1] != None and user[2] != email:
             phone_list.append(user[1])
 
     return phone_list
-
-
-# def registration_text_update():
 
 
 def send_itinerary_text_update(itinerary_id, email, trip_name, author):

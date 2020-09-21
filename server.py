@@ -1,7 +1,7 @@
 """ Server for Operation Adventure."""
 
 from flask import (Flask, render_template, request, flash, session,
-                   redirect, jsonify, make_response, g)
+                    redirect, jsonify, make_response, g)
 from jinja2 import StrictUndefined
 from model import connect_to_db
 import crud
