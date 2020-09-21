@@ -22,81 +22,88 @@
       {{ msg }}
     </p>
   {% endfor %}
-<!-- <div id="title"> -->
-<div class="bkimg">
-  <div class="title">
-    <div id="adventure-title">Adventure Awaits</div>
-    <div>Grab your friends and plan the perfect adventure...</div>
-  </div>
-  <div id="login-info">
-    <div id="login">
-      <form id="login-form" action="/login" method="POST">
-        <div class="row">
-          <div class="col"></div>
-          <div class="col">
-            <input class="form-control" type="text" name="email" required="required" placeholder="Email" />
-          </div>
-          <div class="col">
-            <input class="form-control" type="password" name="password" required="required" placeholder="Password" />
-          </div>
-          <div class="col"></div>
-        </div>
-        <div>
-          <input id="submit-btn" type="submit" value="Log In" />
-        </div>
-      </form>
+  <div class="bkimg">
+    <div class="title">
+      <div id="adventure-title">Adventure Awaits</div>
+      <div>Grab your friends and plan the perfect adventure...</div>
     </div>
-</div>
-<!-- Button trigger modal -->
-<div data-toggle="modal" data-target="#new-user-modal">
-  Need an account? Click here to sign up...
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="new-user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create an Account</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="new-user-form" submit="/users/create-user.json" method="POST">
-          <div>
-            <input id="new-email" type="text" name="email" placeholder="Email">
+    <!-- login form -->
+    <div id="login-info">
+      <div id="login">
+        <form id="login-form" action="/login" method="POST">
+          <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">
+              <input class="form-control" type="text" name="email" required="required" placeholder="Email" />
+            </div>
+            <div class="col">
+              <input class="form-control" type="password" name="password" required="required" placeholder="Password" />
+            </div>
+            <div class="col">
+            </div>
           </div>
           <div>
-            <input id="new-password" type="text" name="password" placeholder="Password">
-          </div>
-          <div>
-            <input id="new-fname" type="text" name="fname" placeholder="First Name">
-          </div>
-          <div>
-            <input id="new-lname" type="test" name="lname" placeholder="Last Name">
+            <input id="submit-btn" type="submit" value="Log In" />
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary"id="new-user-submit">Create My Account</button>
+  </div>
+  <!-- modal trigger for new user sign up -->
+  <div data-toggle="modal" data-target="#new-user-modal">
+    Need an account? Click here to sign up...
+  </div>
+  <!-- sign up modal -->
+  <div class="modal fade" id="new-user-modal" tabindex="-1" role="dialog" aria-labelledby="SignUpModalLabel" 
+        aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="SignUpModalLabel">Create an Account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="new-user-form" submit="/users/create-user.json" method="POST">
+            <div>
+              <input id="new-email" type="text" name="email" placeholder="Email">
+            </div>
+            <div>
+              <input id="new-password" type="text" name="password" placeholder="Password">
+            </div>
+            <div>
+              <input id="new-fname" type="text" name="fname" placeholder="First Name">
+            </div>
+            <div>
+              <input id="new-lname" type="test" name="lname" placeholder="Last Name">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary"id="new-user-submit">Create My Account</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- Alert modal -->
-<div class="modal fade bd-example-modal-sm" id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-header" id="alert-modal-header">
-      <button type="button" class="close" id="alert-close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <!-- Alert modal - not working yet.-->
+  <!-- Need to figure out why i can't force close first modal, then open this one. -->
+  
+  <!-- <div class="modal fade bd-example-modal-sm" id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class=modal-content>
+        <div class="modal-header" id="alert-modal-header">
+          <button type="button" class="close" id="alert-close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="alert-modal-text">
+          </div>
+        </div>f
+      </div>
     </div>
-    <div class="modal-content" id="alert-modal-text">
-
-    </div>
-  </div>
-</div>
+  </div> -->
 
 
 

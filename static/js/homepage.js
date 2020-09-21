@@ -11,10 +11,11 @@ $('#new-user-submit').on('click', () => {
         };
 
     $.post('/users/create-user.json', formData, (response) => {
-        // alert(response)
-    $('#alert-modal-text').text(response);
-    $('#alert-modal').modal('toggle');
-    $('#new-user-modal').modal('toggle');
-
-    });
+        // $('#alert-modal-text').text(response);
+        $('#new-user-modal').modal('toggle');
+        alert(response)
+        // $('#alert-modal').modal('open');
+        });
 });
+
+

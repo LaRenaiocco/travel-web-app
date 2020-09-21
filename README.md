@@ -1,8 +1,8 @@
-# <img src="https://github.com/LaRenaiocco/travel-web-app/blob/master/static/adventure_awaits.png" width="75%" alt="Adventure Awaits">
-Adventure Awaits was inspired by my love of travel with my friends and that fact that I am always the one keeping us all organized leading up to a trip and finding all the best activities and deals.  Adventure Awaits allows users to create an account, set up unlimited itineraries for future trips, and link those itineraries with their travel mates so that a user and friends can collaboratively plan the perfect adventure!
+# <img src="https://github.com/LaRenaiocco/travel-web-app/blob/master/static/adventure_awaits.png" alt="Adventure Awaits">
+Adventure Awaits was inspired by my love of travel, and in particular traveling with friends.  Also the fact that I am always the one keeping everyone and everything organized leading up to a trip and finding all the best activities and deals.  Adventure Awaits allows users to create an account, set up unlimited itineraries for future trips, and link those itineraries with their travel mates so that a user and friends can collaboratively plan the perfect adventure!
 
 ## About the Developer
-Before attending Hackbright Academy, LaRena spent most of her adult life clowning around in the circus (yes, you read that right).  She studied Theatre in college and then honed her circus and clowning skills at the San Francisco Clown Conservatory.  LaRena spent 8 years touring full time in the US, Mexico and Japan with Ringling Bros. and Barnum & Bailey as well as Kinoshita Circus. Despite her passion for travel, being on the road 52 weeks a year can wear out even the most seasoned traveller.  Looking to live in one place and ready for the next step in her career, coupled with massive amounts of time in the current pandemic, LaRena discovered a love for software development and has enjoyed putting her previously unused math and logic skills to good use and learning to code
+Before attending Hackbright Academy, LaRena spent most of her adult life clowning around in the circus (yes, you read that right).  She studied Theatre in college and then honed her circus and clowning skills at the San Francisco Clown Conservatory.  LaRena spent 8 years touring full time in the US, Mexico and Japan with Ringling Bros. and Barnum & Bailey as well as Kinoshita Circus. Despite her passion for travel, being on the road 52 weeks a year can wear out even the most seasoned traveller.  Looking to live in one place and ready for the next step in her career, coupled with massive amounts of time in the current pandemic, LaRena discovered a love for software development and has enjoyed putting her previously unused math and logic skills to good use and learning to code.
 
 
 ## Deployment
@@ -39,12 +39,12 @@ Users  can register or login on the Jinja2 and Javascript rendered landing page.
 ![alt text](https://media.giphy.com/media/TJV64Sf5avhAVQXchr/giphy.gif "Adventure Awaits landing page")
 
 #### User Profile Page
-After a user has created an account and logged in they will be redirected to their profile page.  Here the user can see all of their existing trips, plan a new trip by entering a place and dates, join an existing trip that freinds are planning, and activate or deactivate text updates about their trips. The text update feature uses the Twilio API.
+After a user has created an account and logged in they will be redirected to their profile page.  Here the user can see all of their existing trips, plan a new trip by entering a place and dates, join an existing trip that friends are planning, and activate or deactivate text updates about their trips. The text update feature uses the Twilio API.
 
 ![alt text](https://media.giphy.com/media/YMXyE98g8UaJ3roZfy/giphy.gif "Adventure Awaits profile page")
 
 #### Itinerary Pages
-Users are linked to their fellow travellers through the itinerary page.  All users with the access code can join a trip together and thus is the space to collaborate on the perfect adventure.  Users can see their itinerary with all activities broken down by day and time for a trip.  Undated activities will appear at the bottom of the itinerary.  All activities will also appear on the trip map, and clicking a marker will quickly show the user what day their activity is planned for.  This space also allows users to leave notes and ideas for each other regarding the trip, see which friends are linked to this trip as well as print their itinerary.
+Users are linked to their fellow travellers through the itinerary page.  All users with the access code can join a trip together and this is the space to collaborate on the perfect adventure.  Users can see their itinerary with all activities broken down by day and time for a trip.  Undated activities will appear at the bottom of the itinerary.  All activities will also appear on the trip map, and clicking a marker will quickly show the user what day their activity is planned for.  This space also allows users to leave notes and ideas for each other regarding the trip, see which friends are linked to this trip as well as print their itinerary.
 
 ![alt text](https://media.giphy.com/media/UokE1YPakB14XCYO0z/giphy.gif "Adventure Awaits itinerary page")
 
