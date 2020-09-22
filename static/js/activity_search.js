@@ -2,49 +2,33 @@
 
 // Return Itienrary start and end days to lock activity date picker to days of trip.
 $.get('/users/trips/activities.json', (data) => {
-
-    const response = JSON.parse(data)
-
-    const min = response.start_date;
-    const max = response.end_date;
-
-    document.getElementById("activity-date").min = min
-    document.getElementById("activity-date").max = max
-
-    $('#back-to-itinerary').on('click', () => {
-        console.log(response.itinerary_id)
-        document.location.href = `/users/trips/${response.itinerary_id}`
-    })
-})
+  const response = JSON.parse(data);
+  // lock date picker to days of trip
+  document.getElementById("activity-date").min = response.start_date;
+  document.getElementById("activity-date").max = response.end_date;
+  // return to itinerary
+  $('#back-to-itinerary').on('click', () => {
+    console.log(response.itinerary_id);
+    document.location.href = `/users/trips/${response.itinerary_id}`;
+  });
+});
 
 // Submit new activity to DB and return alert that activity is added.
 $('#new-activity-form').on('submit', (evt) => {
-    evt.preventDefault();
-
-    const placeName = $('#place-name').text()
-    console.log(placeName)
-
-    const formData = {
-        name: $('#place-name').text(),
-        address: $('#place-address').text(),
-        latlng: $('#latlng').text(),
-        day: $('#activity-date').val(),
-        time: $('#activity-time').val(),
-        note: $('#activity-note').val()
-    }
-    
-    console.log(formData)
-
-    document.getElementById("new-activity-form").reset();
-
-
-    $.post('/users/trips/new-activity/api', formData, (response) => {
-        $('#activity-modal-text').text(response);
-        $('#activity-modal').modal('toggle');
-    })
+  evt.preventDefault();
+  const formData = {
+    name: $('#place-name').text(),
+    address: $('#place-address').text(),
+    latlng: $('#latlng').text(),
+    day: $('#activity-date').val(),
+    time: $('#activity-time').val(),
+    note: $('#activity-note').val()
+  };
+  // reset new activity form
+  document.getElementById("new-activity-form").reset();
+  // submit activity to DB and return response in modal
+  $.post('/users/trips/new-activity/api', formData, (response) => {
+    $('#activity-modal-text').text(response);
+    $('#activity-modal').modal('toggle');
+  });
 });
-
-// redirect back to Itinerary page.
-// $('#back-to-itinerary').on('click', () => {
-//     document.location.href = `/users/trips/`
-// })

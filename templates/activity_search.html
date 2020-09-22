@@ -5,15 +5,11 @@
   <script src="/static/js/map_styles.js"></script>
   <script src="/static/js/activity_search_map.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-  <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCAzkJ73QJXmoq8jsCvLAe0RRqcNG5vOQ&callback=initMap&libraries=places&v=weekly"
-      defer
-    ></script>
-
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCAzkJ73QJXmoq8jsCvLAe0RRqcNG5vOQ&callback=initMap&libraries=places&v=weekly"
+      defer></script>
 {% endblock %}
 
 {% block body %}
-
   <div>
     <h3 id="activity-header">Your trip to {{ trip_name }}</h3>
     <br />
@@ -35,11 +31,10 @@
       </form>
       <div id="back-to-itinerary">
         Head back to your itinerary for <span id="span-trip">{{ trip_name }}...</span>
-        <!-- <button id="back-to-itinerary">{{ trip_name }}</button> -->
       </div>
     </div>
-
     <div class="col-7">
+      <!-- auto complete input settings -->
       <div style="display: none">
         <input
           id="pac-input"
@@ -50,9 +45,11 @@
           placeholder="Enter a location..."
         />
       </div>
+      <!-- map placement -->
       <div class="map">
         <div id="map"></div>
       </div>
+      <!-- info window settings -->
       <div id="infowindow-content">
         <span id="place-name" class="title"></span><br />
         <span hidden id="place-id"></span><br />
@@ -61,6 +58,7 @@
       </div>
     <div>
   </div>
+  <!-- activity added to trip modal -->
   <div class="modal fade" id="activity-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

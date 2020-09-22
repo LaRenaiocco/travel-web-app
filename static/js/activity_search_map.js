@@ -1,19 +1,15 @@
 "use strict"
 
-const latLngObject = {lat: 0, lng: 0}
-//  get latitude and longitude from database to build map
-
-
+const latLngObject = {lat: 0, lng: 0};
 
 //  Build activity search map
 function initMap() {
-
+//  get latitude and longitude from database to build map
   $.get('/users/trips/activities.json', (data) => {
-    const response = JSON.parse(data)
-  
+    const response = JSON.parse(data);
     latLngObject['lat'] = response.lat;
     latLngObject['lng'] = response.lng;
-
+    // map instantiation
     const map = new google.maps.Map(document.getElementById("map"), {
       center: latLngObject,
       zoom: 8,
@@ -33,6 +29,7 @@ function initMap() {
     infowindow.setContent(infowindowContent);
     const geocoder = new google.maps.Geocoder();
     const marker = new google.maps.Marker({ map: map });
+    // marker and info appears when user selects auto complete option
     marker.addListener("click", () => {
       infowindow.open(map, marker);
     });
@@ -62,11 +59,7 @@ function initMap() {
           results[0].formatted_address;
         infowindowContent.children["latlng"].textContent = results[0].geometry.location
         infowindow.open(map, marker);
-        //  does not work...
-        // $('#new-activity-form').on('submit', () => {
-        //   infowindow.close()
-        // })
       });
     });
   });
-}
+};
