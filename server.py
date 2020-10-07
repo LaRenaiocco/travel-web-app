@@ -232,4 +232,4 @@ if __name__ == '__main__':
     if sys.argv[-1] == 'jstest':
         JS_TESTING_MODE = True
 
-    app.run(host='0.0.0.0', debug=True)
+    app.run()
