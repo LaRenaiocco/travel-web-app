@@ -29,6 +29,10 @@ $('#new-trip-submit').on('click', () => {
   });
 });
 
+$('#existing-trip-id').on('keypress', function(e) {
+  return e.which !== 13;
+});
+
 // Creates a UserItinerary link in DB and adds itinerary to html.
 $('#existing-submit').on('click', () => {
   $.post('/users/trips/add-trip.json', {'id': $('#existing-trip-id').val()}, (response) => {

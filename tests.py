@@ -1,6 +1,6 @@
+"""Tests for Crud and Helper files"""
 #run code in terminal: 
 # python3 -m unittest tests.py 
-
 
 from unittest import TestCase
 from flask import session

@@ -42,15 +42,15 @@
           <div class="modal-body">
             <form id="new-trip-form" action="/users/trips/new-trip.json" method="POST">
               <div>Where is your next adventure?
-                <input id="city-input" type="text" name="city" placeholder="city and state/country"/>
+                <input id="city-input" type="text" name="city" required="required" placeholder="city and state/country"/>
               </div>
               <div>Departure Date:</div>
               <div>
-                <input id="depart-date" type="date" name="depart" />
+                <input id="depart-date" type="date" name="depart" required="required" />
               </div>
               <div>Return Date:</div>
               <div>
-                <input id="return-date" type="date" name="return" />
+                <input id="return-date" type="date" name="return" required="required" />
               </div>
             </form>
           </div>
@@ -80,7 +80,7 @@
           <div class="modal-body">
             <form id="existing-trip-form" action="/users/trips/add-trip.json" method="POST">
               <div>You should have received a trip id # from your travel mate.  Please enter it here.
-                <input id="existing-trip-id" type="text" name="id" />
+                <input id="existing-trip-id" type="text" name="id" required="required" />
               </div>
             </form>
           </div>
@@ -112,7 +112,7 @@
             Enter your phone number for text udpates.
             <form id="phone-form">
               <input id="phone-num" type="number" name="phone-num" placeholder="phone number" 
-                      minlength="10" maxlength="10" />
+                      minlength="10" maxlength="10" required="required" />
             </form>
           </div>
           <div class="modal-footer">
