@@ -6,7 +6,7 @@ Before attending Hackbright Academy, LaRena spent most of her adult life clownin
 
 
 ## Deployment
-Launching soon at: http://www.adventure-awaits.fun/
+Launching soon at: http://adventure-awaits.fun/
 
 ## Contents
 * [Tech Stack](#tech-stack)
