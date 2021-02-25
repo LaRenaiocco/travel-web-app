@@ -235,4 +235,4 @@ if __name__ == '__main__':
     # app.run()
     # turn this ON for development updates
     # app.run(host='0.0.0.0:4999')
-    app.run(host='0.0.0.0',port=5050, debug=True)
+    app.run(host='0.0.0.0', debug=True)
