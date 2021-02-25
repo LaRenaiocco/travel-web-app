@@ -232,7 +232,6 @@ if __name__ == '__main__':
     if sys.argv[-1] == 'jstest':
         JS_TESTING_MODE = True
     # turn this OFF for development updates
-    # app.run()
+    app.run()
     # turn this ON for development updates
-    # app.run(host='0.0.0.0:4999')
-    app.run(host='0.0.0.0', debug=True)
+    # app.run(host='0.0.0.0', debug=True)
